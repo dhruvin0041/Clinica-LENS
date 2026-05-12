@@ -1,37 +1,40 @@
-# Clinica-LENS: Advanced Multimodal Clinical Diagnostic Partner
+# Clinica-LENS: Professional Multimodal Clinical Diagnostic Partner
 
-![Status](https://img.shields.io/badge/Status-Active-brightgreen) ![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python&logoColor=white) ![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js&logoColor=white) ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange?logo=tensorflow) ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-red?logo=pytorch)
+![Status](https://img.shields.io/badge/Status-Professional--Edition-gold) ![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python&logoColor=white) ![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js&logoColor=white) ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-red?logo=pytorch) ![FastAPI](https://img.shields.io/badge/FastAPI-Production-009688?logo=fastapi&logoColor=white)
 
-Clinica-LENS is a high-fidelity Medical AI assistant designed to transform radiology workflows. It moves beyond simple classification by acting as a collaborative partner, integrating computer vision, natural language processing, and state-of-the-art explainability.
+Clinica-LENS is a professional-grade Medical AI assistant designed to transform radiology workflows. It integrates state-of-the-art computer vision, hybrid RAG, and rigorous clinical safety mechanisms to act as a transparent and verifiable diagnostic partner.
 
 ## 🌟 Advanced Clinical Features
 
 ### 🧠 Domain-Specific Intelligence
-*   **Vision (CheXNet):** Utilizes a **DenseNet121** backbone optimized for chest radiography, capable of detecting subtle clinical markers.
-*   **Text (SapBERT):** Leverages **SapBERT** embeddings, providing deep understanding of medical terminology and entity alignment.
+*   **Vision (CheXNet):** DenseNet121 backbone optimized for chest radiography.
+*   **Text (SapBERT):** SapBERT embeddings for deep medical entity alignment.
+*   **Advanced RAG:** **BGE Cross-Encoder Re-ranking** for high-precision literature retrieval.
 
 ### 🔬 Multi-Modal Reasoning
-*   **Transformer Fusion:** Employs a **Multimodal Transformer with Cross-Attention**, allowing clinical notes to dynamically guide the vision model's focus.
-*   **Conversational VQA:** A stateful **Chat-with-Scan** interface that allows clinicians to interrogate images with natural language questions.
+*   **Transformer Fusion:** Multimodal Transformer with Cross-Attention.
+*   **Conversational VQA:** Stateful Chat-with-Scan interface for image-grounded interrogation.
+*   **Clinical Inpainting:** **OpenCV-based Counterfactuals** that fill abnormal regions with realistic "normal" textures for "What-If" analysis.
 
 ### 🛡️ Safety & Clinical Rigor
-*   **Uncertainty Estimation:** Uses **Monte Carlo (MC) Dropout** to provide a confidence interval (±%) for every diagnosis, flagging high-uncertainty cases for manual review.
-*   **Hallucination Guardrails:** A self-correction loop that verifies AI claims against peer-reviewed medical literature.
-*   **Hybrid Search:** Combines semantic (FAISS) and keyword (BM25) retrieval for zero-miss clinical grounding.
+*   **Uncertainty Estimation:** Monte Carlo (MC) Dropout confidence intervals.
+*   **Conformal Prediction:** Formal statistical coverage guarantees for diagnostic sets.
+*   **NLI Fact-Checking:** **Natural Language Inference (NLI)** guardrails that verify every claim against peer-reviewed literature.
+*   **Hybrid Search:** Combined semantic (FAISS) and keyword (BM25) retrieval.
 
 ### 🏥 Professional Radiology Workflow
-*   **Longitudinal Analysis:** A Siamese network architecture that compares **Current vs. Prior** scans to calculate a **Temporal Progression Score**.
-*   **Native DICOM Support:** Support for high-bit depth 16-bit medical data with real-time **Clinical Windowing** (Level/Width) controls.
-*   **Structured Reporting:** Automatically generates formal reports with **Findings** and **Impression** sections.
-*   **Counterfactual XAI:** "What-If" analysis that quantifies how specific image regions influence the final diagnostic probability.
+*   **Longitudinal Analysis:** Siamese network for Temporal Progression Scoring.
+*   **Native DICOM Support:** Support for 16-bit high-bit depth data with windowing controls.
+*   **Structured Reporting:** Automated generation of formal radiology reports.
+*   **Production API:** **FastAPI-powered** backend for enterprise integration.
 
 ## 🏗️ Technical Architecture
 
 1.  **Vision Layer:** DenseNet121 feature map extractor.
-2.  **Language Layer:** SapBERT embeddings with Ensemble Retrieval (FAISS + BM25).
-3.  **Fusion Layer:** Transformer-based sequence encoder.
-4.  **Temporal Layer:** Siamese comparison network for progression monitoring.
-5.  **Explainability:** Grad-CAM spatial attention + Feature Occlusion counterfactuals.
+2.  **Language Layer:** SapBERT embeddings + BGE Re-ranking.
+3.  **Fusion Layer:** Transformer-based sequence interaction.
+4.  **Verification Layer:** NLI-based fact-checking and Conformal Prediction.
+5.  **Explainability:** Grad-CAM + Inpainted Counterfactuals.
 
 ## 🚀 Getting Started
 
@@ -52,18 +55,23 @@ Clinica-LENS is a high-fidelity Medical AI assistant designed to transform radio
    ```bash
    streamlit run app/app.py
    ```
-3. **Initialize:** Use the sidebar to **Re-Ingest Literature** and **Setup LLM**.
+3. **Run the Production API:**
+   ```bash
+   python src/api.py
+   ```
 
 ## 📁 Project Structure
 
-* `app/app.py`: Next-Gen Streamlit dashboard with VQA and DICOM controls.
-* `src/models.py`: CheXNet, Transformer Fusion, and Temporal Siamese architectures.
-* `src/rag_pipeline.py`: Hybrid search, SapBERT embeddings, and chat history management.
-* `src/pipeline.py`: The unified clinical orchestrator.
-* `src/xai.py`: Grad-CAM and Counterfactual logic.
+* `app/app.py`: Streamlit dashboard with VQA and DICOM controls.
+* `src/api.py`: Production-grade FastAPI backend.
+* `src/models.py`: Vision, Fusion, and Temporal Siamese architectures.
+* `src/rag_pipeline.py`: SapBERT RAG with BGE Re-ranking and NLI verification.
+* `src/pipeline.py`: Unified orchestrator with Conformal Prediction.
+* `src/xai.py`: Grad-CAM and Inpainting counterfactuals.
+* `tests/`: Automated test suite for core logic.
 
-## 🎓 Research Prototype
-This project demonstrates expertise in **Multimodal Medical AI**, **Clinical Decision Support**, and **Safety-Critical Machine Learning**. It highlights the ability to build AI systems that are transparent, verifiable, and aligned with clinical standards.
+## 🎓 Professional Edition
+This project demonstrates expertise in **Multimodal Medical AI**, **Clinical Decision Support**, and **Safety-Critical Machine Learning**. It is built for transparency, statistical rigor, and enterprise-ready deployment.
 
 ---
-*Disclaimer: This is a research prototype for portfolio purposes and is not intended for real-world clinical diagnosis.*
+*Disclaimer: This is a professional research prototype for portfolio purposes and is not intended for real-world clinical diagnosis.*

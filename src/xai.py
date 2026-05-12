@@ -65,22 +65,39 @@ def overlay_heatmap(img_path, heatmap, alpha=0.5, colormap=plt.cm.jet):
     
     return combined
 
+import cv2
+
 def generate_counterfactual(model, input_tensor, heatmap, threshold=0.6):
     """
-    Phase 2: Generates a counterfactual image by occluding the high-attribution regions.
-    Allows measuring the 'What-If' probability shift.
+    Phase 3 Upgrade: Generates a counterfactual image using OpenCV Inpainting.
+    Instead of just blacking out regions, it fills them with surrounding 'normal' textures.
     """
-    # Normalize heatmap to 0-1
+    # 1. Prepare mask from heatmap
     heatmap_norm = (heatmap - heatmap.min()) / (heatmap.max() - heatmap.min() + 1e-8)
+    mask = (heatmap_norm > threshold).float().squeeze().cpu().numpy()
+    mask = (mask * 255).astype(np.uint8)
     
-    # Create a mask where attribution is high
-    mask = (heatmap_norm > threshold).float()
+    # 2. Convert input_tensor back to image for CV2
+    # Inverse normalize
+    mean = torch.tensor([0.485, 0.456, 0.406]).view(1, 3, 1, 1).to(input_tensor.device)
+    std = torch.tensor([0.229, 0.224, 0.225]).view(1, 3, 1, 1).to(input_tensor.device)
+    unnorm_img = input_tensor * std + mean
     
-    # Occlude the input tensor (set high attribution regions to zero/mean)
-    # We use a smoothed version of the mask to avoid harsh edges
-    counterfactual_tensor = input_tensor * (1 - mask)
+    img_np = unnorm_img.squeeze().permute(1, 2, 0).cpu().detach().numpy()
+    img_np = (np.clip(img_np, 0, 1) * 255).astype(np.uint8)
     
-    return counterfactual_tensor
+    # 3. Apply Inpainting
+    # Resize mask if needed
+    if mask.shape != img_np.shape[:2]:
+        mask = cv2.resize(mask, (img_np.shape[1], img_np.shape[0]))
+    
+    inpainted = cv2.inpaint(img_np, mask, 3, cv2.INPAINT_TELEA)
+    
+    # 4. Convert back to tensor
+    inpainted_tensor = torch.from_numpy(inpainted).permute(2, 0, 1).float() / 255.0
+    inpainted_tensor = (inpainted_tensor - mean.squeeze().cpu()) / std.squeeze().cpu()
+    
+    return inpainted_tensor.unsqueeze(0).to(input_tensor.device)
 
 if __name__ == "__main__":
     from src.models import ClinicaVisionModel

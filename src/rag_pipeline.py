@@ -1,6 +1,6 @@
 import os
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader, TextLoader
-from langchain_text_splitters import RecursiveCharacterCharacterSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.llms import HuggingFacePipeline
@@ -9,10 +9,16 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 
+from langchain.retrievers import ContextualCompressionRetriever
+from langchain.retrievers.document_compressors import CrossEncoderReranker
+from langchain_community.cross_encoders import HuggingFaceCrossEncoder
+from transformers import AutoModelForSequenceClassification
+
 class MedicalRAG:
     """
     Upgraded Retrieval-Augmented Generation pipeline for Clinica-LENS.
-    Uses SapBERT for medical embeddings and Hybrid Search (BM25 + FAISS).
+    Uses SapBERT for medical embeddings and Hybrid Search (BM25 + FAISS) 
+    with BGE Cross-Encoder Re-ranking.
     """
     def __init__(self, data_dir=None, vector_db_path=None):
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,12 +30,24 @@ class MedicalRAG:
         self.embeddings = HuggingFaceEmbeddings(
             model_name="cambridgeltl/SapBERT-from-PubMedBERT-fulltext"
         )
+        
+        # 2. Setup Re-ranker
+        print("Loading BGE Cross-Encoder re-ranker...")
+        self.reranker_model = HuggingFaceCrossEncoder(model_name="BAAI/bge-reranker-base")
+        self.compressor = CrossEncoderReranker(model=self.reranker_model, top_n=3)
+
+        # 3. NLI Model for Fact Checking (Phase 2 Upgrade)
+        print("Loading NLI model for verification...")
+        self.nli_tokenizer = AutoTokenizer.from_pretrained("cross-encoder/nli-deberta-v3-small")
+        self.nli_model = AutoModelForSequenceClassification.from_pretrained("cross-encoder/nli-deberta-v3-small")
+
         self.vectorstore = None
         self.bm25_retriever = None
         self.ensemble_retriever = None
+        self.compression_retriever = None
         self.llm = None
         self.qa_chain = None
-        self.chat_history = [] # For Conversational VQA
+        self.chat_history = [] 
 
     def ingest_documents(self):
         """Loads PDFs, splits them, and creates Hybrid Search indexes."""
@@ -49,7 +67,6 @@ class MedicalRAG:
             print("No documents found.")
             return
 
-        from langchain_text_splitters import RecursiveCharacterTextSplitter
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
         texts = text_splitter.split_documents(documents)
 
@@ -59,15 +76,20 @@ class MedicalRAG:
         self.vectorstore.save_local(self.vector_db_path)
         
         self.bm25_retriever = BM25Retriever.from_documents(texts)
-        self.bm25_retriever.k = 3
+        self.bm25_retriever.k = 5
         
-        faiss_retriever = self.vectorstore.as_retriever(search_kwargs={"k": 3})
+        faiss_retriever = self.vectorstore.as_retriever(search_kwargs={"k": 5})
         
         self.ensemble_retriever = EnsembleRetriever(
-            retrievers=[bm25_retriever, faiss_retriever],
-            weights=[0.4, 0.6] # Favor semantic search slightly
+            retrievers=[self.bm25_retriever, faiss_retriever],
+            weights=[0.4, 0.6] 
         )
-        print("Hybrid Search ready.")
+
+        # Apply Re-ranking
+        self.compression_retriever = ContextualCompressionRetriever(
+            base_compressor=self.compressor, base_retriever=self.ensemble_retriever
+        )
+        print("Hybrid Search with Re-ranking ready.")
 
     def load_vector_db(self):
         """Loads existing FAISS and reconstructs BM25 index from stored docs."""
@@ -75,19 +97,19 @@ class MedicalRAG:
             self.vectorstore = FAISS.load_local(
                 self.vector_db_path, self.embeddings, allow_dangerous_deserialization=True
             )
-            
-            # Reconstruct BM25 from FAISS documents
-            # Note: In production, we'd save BM25 separately, but here we can derive it.
             docs = list(self.vectorstore.docstore._dict.values())
             self.bm25_retriever = BM25Retriever.from_documents(docs)
-            self.bm25_retriever.k = 3
+            self.bm25_retriever.k = 5
             
-            faiss_retriever = self.vectorstore.as_retriever(search_kwargs={"k": 3})
+            faiss_retriever = self.vectorstore.as_retriever(search_kwargs={"k": 5})
             self.ensemble_retriever = EnsembleRetriever(
                 retrievers=[self.bm25_retriever, faiss_retriever],
                 weights=[0.4, 0.6]
             )
-            print("Hybrid Search loaded successfully.")
+            self.compression_retriever = ContextualCompressionRetriever(
+                base_compressor=self.compressor, base_retriever=self.ensemble_retriever
+            )
+            print("Hybrid Search with Re-ranking loaded.")
 
     def setup_llm(self, model_id="TinyLlama/TinyLlama-1.1B-Chat-v1.0"):
         """Initializes a local LLM and the RAG chain."""
@@ -97,7 +119,6 @@ class MedicalRAG:
         pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_new_tokens=256, temperature=0.1)
         self.llm = HuggingFacePipeline(pipeline=pipe)
 
-        # Phase 3: Structured Report Template
         template = """You are a senior radiologist. Based on the clinical context provided, generate a structured radiology report.
         Strictly follow this format:
         FINDINGS: <Detailed observations from the context>
@@ -111,30 +132,37 @@ class MedicalRAG:
         Structured Radiology Report:"""
         PROMPT = PromptTemplate(template=template, input_variables=["context", "question"])
 
-        if self.ensemble_retriever:
+        if self.compression_retriever:
             self.qa_chain = RetrievalQA.from_chain_type(
                 llm=self.llm,
                 chain_type="stuff",
-                retriever=self.ensemble_retriever,
+                retriever=self.compression_retriever,
                 return_source_documents=True,
                 chain_type_kwargs={"prompt": PROMPT}
             )
 
     def verify_explanation(self, context, explanation):
-        """Phase 5: Self-Correction Loop / Hallucination Guardrail."""
-        verification_prompt = f"""Compare the Following Explanation against the provided Clinical Context.
-        Context: {context}
-        Explanation: {explanation}
+        """Phase 2: NLI-based Fact Checking."""
+        # Split explanation into sentences
+        sentences = [s.strip() for s in explanation.split('.') if len(s.strip()) > 10]
+        if not sentences:
+            return "SAFE"
+            
+        warnings = []
+        for sent in sentences:
+            # Pair each sentence with context
+            features = self.nli_tokenizer(context, sent, truncation=True, return_tensors="pt")
+            with torch.no_grad():
+                logits = self.nli_model(**features).logits
+                # labels: 0: contradiction, 1: neutral, 2: entailment
+                probs = torch.softmax(logits, dim=1).squeeze()
+                
+            if probs[0] > 0.5: # Contradiction detected
+                warnings.append(f"Sentence '{sent[:30]}...' contradicts literature.")
+            elif probs[2] < 0.3: # Low entailment
+                warnings.append(f"Sentence '{sent[:30]}...' is not grounded in literature.")
         
-        Does the explanation contain any medical claims NOT supported by the context? 
-        Answer 'SAFE' if verified, or 'WARNING: [reason]' if unverified claims exist.
-        Verification Status:"""
-        
-        # Use a raw LLM call for verification
-        if self.llm:
-            status = self.llm(verification_prompt)
-            return status.strip()
-        return "Verification Unavailable"
+        return "SAFE" if not warnings else "WARNING: " + "; ".join(warnings[:2])
 
     def explain_diagnosis(self, query):
         """Generates a verified structured report."""
