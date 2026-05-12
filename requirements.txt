@@ -1,0 +1,16 @@
+torch
+torchvision
+transformers
+langchain
+accelerate
+bitsandbytes
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+streamlit
+pillow
+captum
+sentence-transformers
+pypdf
