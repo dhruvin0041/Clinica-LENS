@@ -1,512 +1,8 @@
 {
   "directed": false,
   "multigraph": false,
-  "graph": {
-    "hyperedges": [
-      {
-        "id": "clinica_lens_core_pipeline",
-        "label": "Clinica-LENS Core Architecture",
-        "nodes": [
-          "pipeline_clinicalenspipeline",
-          "models_clinicavisionmodel",
-          "models_clinicafusionmodel",
-          "rag_pipeline_medicalrag",
-          "xai_get_grad_cam"
-        ],
-        "relation": "form",
-        "confidence": "INFERRED",
-        "confidence_score": 0.9,
-        "source_file": "src/pipeline.py"
-      }
-    ]
-  },
+  "graph": {},
   "nodes": [
-    {
-      "label": "app.py",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\app\\app.py",
-      "source_location": "L1",
-      "id": "app_app_py",
-      "community": 2,
-      "norm_label": "app.py"
-    },
-    {
-      "label": "load_pipeline()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\app\\app.py",
-      "source_location": "L22",
-      "id": "app_load_pipeline",
-      "community": 2,
-      "norm_label": "load_pipeline()"
-    },
-    {
-      "label": "ast_extract.py",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\graphify-out\\ast_extract.py",
-      "source_location": "L1",
-      "id": "graphify_out_ast_extract_py",
-      "community": 6,
-      "norm_label": "ast_extract.py"
-    },
-    {
-      "label": "check_cache.py",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\graphify-out\\check_cache.py",
-      "source_location": "L1",
-      "id": "graphify_out_check_cache_py",
-      "community": 7,
-      "norm_label": "check_cache.py"
-    },
-    {
-      "label": "detect.py",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\graphify-out\\detect.py",
-      "source_location": "L1",
-      "id": "graphify_out_detect_py",
-      "community": 8,
-      "norm_label": "detect.py"
-    },
-    {
-      "label": "merge_and_build.py",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\graphify-out\\merge_and_build.py",
-      "source_location": "L1",
-      "id": "graphify_out_merge_and_build_py",
-      "community": 9,
-      "norm_label": "merge_and_build.py"
-    },
-    {
-      "label": "models.py",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L1",
-      "id": "src_models_py",
-      "community": 3,
-      "norm_label": "models.py"
-    },
-    {
-      "label": "ClinicaVisionModel",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L5",
-      "id": "models_clinicavisionmodel",
-      "community": 4,
-      "norm_label": "clinicavisionmodel"
-    },
-    {
-      "label": ".__init__()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L10",
-      "id": "models_clinicavisionmodel_init",
-      "community": 3,
-      "norm_label": ".__init__()"
-    },
-    {
-      "label": ".forward()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L22",
-      "id": "models_clinicavisionmodel_forward",
-      "community": 4,
-      "norm_label": ".forward()"
-    },
-    {
-      "label": "ClinicaFusionModel",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L34",
-      "id": "models_clinicafusionmodel",
-      "community": 3,
-      "norm_label": "clinicafusionmodel"
-    },
-    {
-      "label": ".__init__()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L39",
-      "id": "models_clinicafusionmodel_init",
-      "community": 3,
-      "norm_label": ".__init__()"
-    },
-    {
-      "label": ".forward()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L56",
-      "id": "models_clinicafusionmodel_forward",
-      "community": 3,
-      "norm_label": ".forward()"
-    },
-    {
-      "label": "ClinicaTemporalModel",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L87",
-      "id": "models_clinicatemporalmodel",
-      "community": 2,
-      "norm_label": "clinicatemporalmodel"
-    },
-    {
-      "label": ".__init__()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L92",
-      "id": "models_clinicatemporalmodel_init",
-      "community": 3,
-      "norm_label": ".__init__()"
-    },
-    {
-      "label": ".forward()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L102",
-      "id": "models_clinicatemporalmodel_forward",
-      "community": 2,
-      "norm_label": ".forward()"
-    },
-    {
-      "label": "Encoder for Medical Images (X-rays) using CheXNet architecture (DenseNet121).",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L6",
-      "id": "models_rationale_6",
-      "community": 4,
-      "norm_label": "encoder for medical images (x-rays) using chexnet architecture (densenet121)."
-    },
-    {
-      "label": "Transformer-based Multimodal Fusion Layer.     Uses Cross-Attention to let Text",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L35",
-      "id": "models_rationale_35",
-      "community": 3,
-      "norm_label": "transformer-based multimodal fusion layer.     uses cross-attention to let text"
-    },
-    {
-      "label": "vision_features: (B, 1024, 7, 7) from DenseNet         text_emb: (B, 768) from",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L57",
-      "id": "models_rationale_57",
-      "community": 3,
-      "norm_label": "vision_features: (b, 1024, 7, 7) from densenet         text_emb: (b, 768) from"
-    },
-    {
-      "label": "Siamese Network for Longitudinal Analysis.     Compares current vision embeddin",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L88",
-      "id": "models_rationale_88",
-      "community": 2,
-      "norm_label": "siamese network for longitudinal analysis.     compares current vision embeddin"
-    },
-    {
-      "label": "pipeline.py",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L1",
-      "id": "src_pipeline_py",
-      "community": 2,
-      "norm_label": "pipeline.py"
-    },
-    {
-      "label": "ClinicaLENSPipeline",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L10",
-      "id": "pipeline_clinicalenspipeline",
-      "community": 2,
-      "norm_label": "clinicalenspipeline"
-    },
-    {
-      "label": ".__init__()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L16",
-      "id": "pipeline_clinicalenspipeline_init",
-      "community": 2,
-      "norm_label": ".__init__()"
-    },
-    {
-      "label": ".load_and_window_image()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L41",
-      "id": "pipeline_clinicalenspipeline_load_and_window_image",
-      "community": 2,
-      "norm_label": ".load_and_window_image()"
-    },
-    {
-      "label": ".predict()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L69",
-      "id": "pipeline_clinicalenspipeline_predict",
-      "community": 1,
-      "norm_label": ".predict()"
-    },
-    {
-      "label": ".chat()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L142",
-      "id": "pipeline_clinicalenspipeline_chat",
-      "community": 5,
-      "norm_label": ".chat()"
-    },
-    {
-      "label": "Unified Upgraded Pipeline for Clinica-LENS.     Orchestrates CheXNet Vision, Sa",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L11",
-      "id": "pipeline_rationale_11",
-      "community": 2,
-      "norm_label": "unified upgraded pipeline for clinica-lens.     orchestrates chexnet vision, sa"
-    },
-    {
-      "label": "Phase 4: Support DICOM windowing for high-bit depth images.",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L42",
-      "id": "pipeline_rationale_42",
-      "community": 2,
-      "norm_label": "phase 4: support dicom windowing for high-bit depth images."
-    },
-    {
-      "label": "Runs the multimodal prediction pipeline with Temporal analysis and Counterfactua",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L70",
-      "id": "pipeline_rationale_70",
-      "community": 1,
-      "norm_label": "runs the multimodal prediction pipeline with temporal analysis and counterfactua"
-    },
-    {
-      "label": "Phase 4: Conversational VQA.",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L143",
-      "id": "pipeline_rationale_143",
-      "community": 5,
-      "norm_label": "phase 4: conversational vqa."
-    },
-    {
-      "label": "rag_pipeline.py",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L1",
-      "id": "src_rag_pipeline_py",
-      "community": 0,
-      "norm_label": "rag_pipeline.py"
-    },
-    {
-      "label": "MedicalRAG",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L12",
-      "id": "rag_pipeline_medicalrag",
-      "community": 0,
-      "norm_label": "medicalrag"
-    },
-    {
-      "label": ".__init__()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L17",
-      "id": "rag_pipeline_medicalrag_init",
-      "community": 0,
-      "norm_label": ".__init__()"
-    },
-    {
-      "label": ".ingest_documents()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L34",
-      "id": "rag_pipeline_medicalrag_ingest_documents",
-      "community": 0,
-      "norm_label": ".ingest_documents()"
-    },
-    {
-      "label": ".load_vector_db()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L72",
-      "id": "rag_pipeline_medicalrag_load_vector_db",
-      "community": 0,
-      "norm_label": ".load_vector_db()"
-    },
-    {
-      "label": ".setup_llm()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L92",
-      "id": "rag_pipeline_medicalrag_setup_llm",
-      "community": 0,
-      "norm_label": ".setup_llm()"
-    },
-    {
-      "label": ".verify_explanation()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L123",
-      "id": "rag_pipeline_medicalrag_verify_explanation",
-      "community": 0,
-      "norm_label": ".verify_explanation()"
-    },
-    {
-      "label": ".explain_diagnosis()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L139",
-      "id": "rag_pipeline_medicalrag_explain_diagnosis",
-      "community": 0,
-      "norm_label": ".explain_diagnosis()"
-    },
-    {
-      "label": ".chat_vqa()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L170",
-      "id": "rag_pipeline_medicalrag_chat_vqa",
-      "community": 5,
-      "norm_label": ".chat_vqa()"
-    },
-    {
-      "label": "Upgraded Retrieval-Augmented Generation pipeline for Clinica-LENS.     Uses Sap",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L13",
-      "id": "rag_pipeline_rationale_13",
-      "community": 0,
-      "norm_label": "upgraded retrieval-augmented generation pipeline for clinica-lens.     uses sap"
-    },
-    {
-      "label": "Loads PDFs, splits them, and creates Hybrid Search indexes.",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L35",
-      "id": "rag_pipeline_rationale_35",
-      "community": 0,
-      "norm_label": "loads pdfs, splits them, and creates hybrid search indexes."
-    },
-    {
-      "label": "Loads existing FAISS and reconstructs BM25 index from stored docs.",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L73",
-      "id": "rag_pipeline_rationale_73",
-      "community": 0,
-      "norm_label": "loads existing faiss and reconstructs bm25 index from stored docs."
-    },
-    {
-      "label": "Initializes a local LLM and the RAG chain.",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L93",
-      "id": "rag_pipeline_rationale_93",
-      "community": 0,
-      "norm_label": "initializes a local llm and the rag chain."
-    },
-    {
-      "label": "Phase 5: Self-Correction Loop / Hallucination Guardrail.",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L124",
-      "id": "rag_pipeline_rationale_124",
-      "community": 0,
-      "norm_label": "phase 5: self-correction loop / hallucination guardrail."
-    },
-    {
-      "label": "Generates a verified structured report.",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L140",
-      "id": "rag_pipeline_rationale_140",
-      "community": 0,
-      "norm_label": "generates a verified structured report."
-    },
-    {
-      "label": "Phase 4: Conversational Visual QA loop.",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L171",
-      "id": "rag_pipeline_rationale_171",
-      "community": 5,
-      "norm_label": "phase 4: conversational visual qa loop."
-    },
-    {
-      "label": "xai.py",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L1",
-      "id": "src_xai_py",
-      "community": 1,
-      "norm_label": "xai.py"
-    },
-    {
-      "label": "get_grad_cam()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L8",
-      "id": "xai_get_grad_cam",
-      "community": 1,
-      "norm_label": "get_grad_cam()"
-    },
-    {
-      "label": "overlay_heatmap()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L48",
-      "id": "xai_overlay_heatmap",
-      "community": 1,
-      "norm_label": "overlay_heatmap()"
-    },
-    {
-      "label": "generate_counterfactual()",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L68",
-      "id": "xai_generate_counterfactual",
-      "community": 1,
-      "norm_label": "generate_counterfactual()"
-    },
-    {
-      "label": "Generates Grad-CAM heatmaps for a given model and input image.          Args:",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L9",
-      "id": "xai_rationale_9",
-      "community": 1,
-      "norm_label": "generates grad-cam heatmaps for a given model and input image.          args:"
-    },
-    {
-      "label": "Overlays a heatmap onto an image.",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L49",
-      "id": "xai_rationale_49",
-      "community": 1,
-      "norm_label": "overlays a heatmap onto an image."
-    },
-    {
-      "label": "Phase 2: Generates a counterfactual image by occluding the high-attribution regi",
-      "file_type": "rationale",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L69",
-      "id": "xai_rationale_69",
-      "community": 1,
-      "norm_label": "phase 2: generates a counterfactual image by occluding the high-attribution regi"
-    },
-    {
-      "label": "__init__.py",
-      "file_type": "code",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\__init__.py",
-      "source_location": "L1",
-      "id": "src_init_py",
-      "community": 10,
-      "norm_label": "__init__.py"
-    },
     {
       "label": "Streamlit Dashboard",
       "file_type": "code",
@@ -517,8 +13,79 @@
       "author": null,
       "contributor": null,
       "id": "app_streamlit_frontend",
-      "community": 1,
+      "community": 4,
       "norm_label": "streamlit dashboard"
+    },
+    {
+      "label": "api.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L1",
+      "id": "src_api_py",
+      "community": 3,
+      "norm_label": "api.py"
+    },
+    {
+      "label": "DiagnosisResponse",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L13",
+      "id": "api_diagnosisresponse",
+      "community": 3,
+      "norm_label": "diagnosisresponse"
+    },
+    {
+      "label": "BaseModel",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "id": "basemodel",
+      "community": 3,
+      "norm_label": "basemodel"
+    },
+    {
+      "label": "predict()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L25",
+      "id": "api_predict",
+      "community": 3,
+      "norm_label": "predict()"
+    },
+    {
+      "label": "health()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L68",
+      "id": "api_health",
+      "community": 3,
+      "norm_label": "health()"
+    },
+    {
+      "label": "ClinicaVisionModel",
+      "file_type": "code",
+      "source_file": "src/models.py",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "models_clinicavisionmodel",
+      "community": 0,
+      "norm_label": "clinicavisionmodel"
+    },
+    {
+      "label": "ClinicaFusionModel",
+      "file_type": "code",
+      "source_file": "src/models.py",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "models_clinicafusionmodel",
+      "community": 0,
+      "norm_label": "clinicafusionmodel"
     },
     {
       "label": "Uses pre-trained ResNet/ViT for feature embeddings",
@@ -530,7 +97,7 @@
       "author": null,
       "contributor": null,
       "id": "models_clinicavisionmodel_rationale",
-      "community": 4,
+      "community": 0,
       "norm_label": "uses pre-trained resnet/vit for feature embeddings"
     },
     {
@@ -543,60 +110,476 @@
       "author": null,
       "contributor": null,
       "id": "models_clinicafusionmodel_rationale",
-      "community": 3,
+      "community": 0,
       "norm_label": "combines vision and text embeddings to predict diagnosis"
     },
     {
-      "label": "Attribute to sum of embedding to see global features",
+      "label": "pipeline.py",
       "file_type": "code",
-      "source_file": "src/xai.py",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "xai_get_grad_cam_rationale",
-      "community": 1,
-      "norm_label": "attribute to sum of embedding to see global features"
-    },
-    {
-      "label": "Multimodal Fusion Concept",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_multimodal_fusion",
-      "community": 3,
-      "norm_label": "multimodal fusion concept"
-    },
-    {
-      "label": "RAG Concept",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_rag",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L1",
+      "id": "src_pipeline_py",
       "community": 0,
-      "norm_label": "rag concept"
+      "norm_label": "pipeline.py"
     },
     {
-      "label": "Explainable AI (XAI) Concept",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_xai",
-      "community": 1,
-      "norm_label": "explainable ai (xai) concept"
+      "label": "ClinicaLENSPipeline",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L10",
+      "id": "pipeline_clinicalenspipeline",
+      "community": 0,
+      "norm_label": "clinicalenspipeline"
+    },
+    {
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L16",
+      "id": "pipeline_clinicalenspipeline_init",
+      "community": 0,
+      "norm_label": ".__init__()"
+    },
+    {
+      "label": ".load_and_window_image()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L41",
+      "id": "pipeline_clinicalenspipeline_load_and_window_image",
+      "community": 0,
+      "norm_label": ".load_and_window_image()"
+    },
+    {
+      "label": ".predict()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L69",
+      "id": "pipeline_clinicalenspipeline_predict",
+      "community": 0,
+      "norm_label": ".predict()"
+    },
+    {
+      "label": ".chat()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L104",
+      "id": "pipeline_clinicalenspipeline_chat",
+      "community": 0,
+      "norm_label": ".chat()"
+    },
+    {
+      "label": "Unified Upgraded Pipeline for Clinica-LENS.     Orchestrates CheXNet Vision, Sa",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L11",
+      "id": "pipeline_rationale_11",
+      "community": 0,
+      "norm_label": "unified upgraded pipeline for clinica-lens.     orchestrates chexnet vision, sa"
+    },
+    {
+      "label": "Phase 4: Support DICOM windowing for high-bit depth images.",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L42",
+      "id": "pipeline_rationale_42",
+      "community": 0,
+      "norm_label": "phase 4: support dicom windowing for high-bit depth images."
+    },
+    {
+      "label": "Runs the multimodal prediction pipeline with Temporal analysis, Counterfactuals,",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L70",
+      "id": "pipeline_rationale_70",
+      "community": 0,
+      "norm_label": "runs the multimodal prediction pipeline with temporal analysis, counterfactuals,"
+    },
+    {
+      "label": "Phase 4: Conversational VQA.",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L105",
+      "id": "pipeline_rationale_105",
+      "community": 0,
+      "norm_label": "phase 4: conversational vqa."
+    },
+    {
+      "label": "rag_pipeline.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L1",
+      "id": "src_rag_pipeline_py",
+      "community": 2,
+      "norm_label": "rag_pipeline.py"
+    },
+    {
+      "label": "MedicalRAG",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L17",
+      "id": "rag_pipeline_medicalrag",
+      "community": 2,
+      "norm_label": "medicalrag"
+    },
+    {
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L23",
+      "id": "rag_pipeline_medicalrag_init",
+      "community": 2,
+      "norm_label": ".__init__()"
+    },
+    {
+      "label": ".ingest_documents()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L52",
+      "id": "rag_pipeline_medicalrag_ingest_documents",
+      "community": 2,
+      "norm_label": ".ingest_documents()"
+    },
+    {
+      "label": ".load_vector_db()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L94",
+      "id": "rag_pipeline_medicalrag_load_vector_db",
+      "community": 3,
+      "norm_label": ".load_vector_db()"
+    },
+    {
+      "label": ".setup_llm()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L114",
+      "id": "rag_pipeline_medicalrag_setup_llm",
+      "community": 3,
+      "norm_label": ".setup_llm()"
+    },
+    {
+      "label": ".verify_explanation()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L144",
+      "id": "rag_pipeline_medicalrag_verify_explanation",
+      "community": 2,
+      "norm_label": ".verify_explanation()"
+    },
+    {
+      "label": ".explain_diagnosis()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L167",
+      "id": "rag_pipeline_medicalrag_explain_diagnosis",
+      "community": 2,
+      "norm_label": ".explain_diagnosis()"
+    },
+    {
+      "label": ".chat_vqa()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L198",
+      "id": "rag_pipeline_medicalrag_chat_vqa",
+      "community": 2,
+      "norm_label": ".chat_vqa()"
+    },
+    {
+      "label": "Upgraded Retrieval-Augmented Generation pipeline for Clinica-LENS.     Uses Sap",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L18",
+      "id": "rag_pipeline_rationale_18",
+      "community": 2,
+      "norm_label": "upgraded retrieval-augmented generation pipeline for clinica-lens.     uses sap"
+    },
+    {
+      "label": "Loads PDFs, splits them, and creates Hybrid Search indexes.",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L53",
+      "id": "rag_pipeline_rationale_53",
+      "community": 2,
+      "norm_label": "loads pdfs, splits them, and creates hybrid search indexes."
+    },
+    {
+      "label": "Loads existing FAISS and reconstructs BM25 index from stored docs.",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L95",
+      "id": "rag_pipeline_rationale_95",
+      "community": 3,
+      "norm_label": "loads existing faiss and reconstructs bm25 index from stored docs."
+    },
+    {
+      "label": "Initializes a local LLM and the RAG chain.",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L115",
+      "id": "rag_pipeline_rationale_115",
+      "community": 3,
+      "norm_label": "initializes a local llm and the rag chain."
+    },
+    {
+      "label": "Phase 2: NLI-based Fact Checking.",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L145",
+      "id": "rag_pipeline_rationale_145",
+      "community": 2,
+      "norm_label": "phase 2: nli-based fact checking."
+    },
+    {
+      "label": "Generates a verified structured report.",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L168",
+      "id": "rag_pipeline_rationale_168",
+      "community": 2,
+      "norm_label": "generates a verified structured report."
+    },
+    {
+      "label": "Phase 4: Conversational Visual QA loop.",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L199",
+      "id": "rag_pipeline_rationale_199",
+      "community": 2,
+      "norm_label": "phase 4: conversational visual qa loop."
+    },
+    {
+      "label": "xai.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
+      "source_location": "L1",
+      "id": "src_xai_py",
+      "community": 4,
+      "norm_label": "xai.py"
+    },
+    {
+      "label": "get_grad_cam()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
+      "source_location": "L8",
+      "id": "xai_get_grad_cam",
+      "community": 4,
+      "norm_label": "get_grad_cam()"
+    },
+    {
+      "label": "overlay_heatmap()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
+      "source_location": "L48",
+      "id": "xai_overlay_heatmap",
+      "community": 4,
+      "norm_label": "overlay_heatmap()"
+    },
+    {
+      "label": "generate_counterfactual()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
+      "source_location": "L70",
+      "id": "xai_generate_counterfactual",
+      "community": 4,
+      "norm_label": "generate_counterfactual()"
+    },
+    {
+      "label": "Generates Grad-CAM heatmaps for a given model and input image.          Args:",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
+      "source_location": "L9",
+      "id": "xai_rationale_9",
+      "community": 4,
+      "norm_label": "generates grad-cam heatmaps for a given model and input image.          args:"
+    },
+    {
+      "label": "Overlays a heatmap onto an image.",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
+      "source_location": "L49",
+      "id": "xai_rationale_49",
+      "community": 4,
+      "norm_label": "overlays a heatmap onto an image."
+    },
+    {
+      "label": "Phase 3 Upgrade: Generates a counterfactual image using OpenCV Inpainting.",
+      "file_type": "rationale",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
+      "source_location": "L71",
+      "id": "xai_rationale_71",
+      "community": 4,
+      "norm_label": "phase 3 upgrade: generates a counterfactual image using opencv inpainting."
+    },
+    {
+      "label": "__init__.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\__init__.py",
+      "source_location": "L1",
+      "id": "src_init_py",
+      "community": 9,
+      "norm_label": "__init__.py"
+    },
+    {
+      "label": "test_core.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L1",
+      "id": "tests_test_core_py",
+      "community": 5,
+      "norm_label": "test_core.py"
+    },
+    {
+      "label": "test_vision_model_forward()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L14",
+      "id": "test_core_test_vision_model_forward",
+      "community": 5,
+      "norm_label": "test_vision_model_forward()"
+    },
+    {
+      "label": "test_fusion_model_forward()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L20",
+      "id": "test_core_test_fusion_model_forward",
+      "community": 5,
+      "norm_label": "test_fusion_model_forward()"
+    },
+    {
+      "label": "test_temporal_model_forward()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L27",
+      "id": "test_core_test_temporal_model_forward",
+      "community": 5,
+      "norm_label": "test_temporal_model_forward()"
+    },
+    {
+      "label": "test_rag_initialization()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L36",
+      "id": "test_core_test_rag_initialization",
+      "community": 5,
+      "norm_label": "test_rag_initialization()"
+    },
+    {
+      "label": "test_pipeline_initialization()",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L47",
+      "id": "test_core_test_pipeline_initialization",
+      "community": 5,
+      "norm_label": "test_pipeline_initialization()"
+    },
+    {
+      "label": "__init__.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\__init__.py",
+      "source_location": "L1",
+      "id": "tests_init_py",
+      "community": 10,
+      "norm_label": "__init__.py"
+    },
+    {
+      "label": "ast_extract.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\graphify-out\\ast_extract.py",
+      "source_location": "L1",
+      "id": "c_data_science_project_clinica_lens_graphify_out_ast_extract_py",
+      "community": 11,
+      "norm_label": "ast_extract.py"
+    },
+    {
+      "label": "check_cache.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\graphify-out\\check_cache.py",
+      "source_location": "L1",
+      "id": "c_data_science_project_clinica_lens_graphify_out_check_cache_py",
+      "community": 12,
+      "norm_label": "check_cache.py"
+    },
+    {
+      "label": "detect.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\graphify-out\\detect.py",
+      "source_location": "L1",
+      "id": "c_data_science_project_clinica_lens_graphify_out_detect_py",
+      "community": 13,
+      "norm_label": "detect.py"
+    },
+    {
+      "label": "merge_and_build.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\graphify-out\\merge_and_build.py",
+      "source_location": "L1",
+      "id": "c_data_science_project_clinica_lens_graphify_out_merge_and_build_py",
+      "community": 14,
+      "norm_label": "merge_and_build.py"
+    },
+    {
+      "label": "api.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L1",
+      "id": "c_data_science_project_clinica_lens_src_api_py",
+      "community": 3,
+      "norm_label": "api.py"
+    },
+    {
+      "label": "pipeline.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L1",
+      "id": "c_data_science_project_clinica_lens_src_pipeline_py",
+      "community": 0,
+      "norm_label": "pipeline.py"
+    },
+    {
+      "label": "rag_pipeline.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L1",
+      "id": "c_data_science_project_clinica_lens_src_rag_pipeline_py",
+      "community": 2,
+      "norm_label": "rag_pipeline.py"
+    },
+    {
+      "label": "xai.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
+      "source_location": "L1",
+      "id": "c_data_science_project_clinica_lens_src_xai_py",
+      "community": 4,
+      "norm_label": "xai.py"
+    },
+    {
+      "label": "__init__.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\__init__.py",
+      "source_location": "L1",
+      "id": "c_data_science_project_clinica_lens_src_init_py",
+      "community": 15,
+      "norm_label": "__init__.py"
+    },
+    {
+      "label": "test_core.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L1",
+      "id": "c_data_science_project_clinica_lens_tests_test_core_py",
+      "community": 5,
+      "norm_label": "test_core.py"
+    },
+    {
+      "label": "__init__.py",
+      "file_type": "code",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\__init__.py",
+      "source_location": "L1",
+      "id": "c_data_science_project_clinica_lens_tests_init_py",
+      "community": 16,
+      "norm_label": "__init__.py"
     },
     {
       "label": "Community-Acquired Pneumonia (CAP)",
@@ -608,7 +591,7 @@
       "author": null,
       "contributor": null,
       "id": "cap_summary_community_acquired_pneumonia",
-      "community": 4,
+      "community": 7,
       "norm_label": "community-acquired pneumonia (cap)"
     },
     {
@@ -621,7 +604,7 @@
       "author": null,
       "contributor": null,
       "id": "cap_summary_curb_65",
-      "community": 4,
+      "community": 7,
       "norm_label": "curb-65 severity assessment"
     },
     {
@@ -634,7 +617,7 @@
       "author": null,
       "contributor": null,
       "id": "cap_summary_radiographic_findings",
-      "community": 4,
+      "community": 7,
       "norm_label": "radiographic findings of cap"
     },
     {
@@ -647,7 +630,7 @@
       "author": null,
       "contributor": null,
       "id": "person1000_bacteria_2931_xray",
-      "community": 11,
+      "community": 17,
       "norm_label": "chest x-ray: bacterial pneumonia"
     },
     {
@@ -660,118 +643,386 @@
       "author": null,
       "contributor": null,
       "id": "person1009_virus_1694_xray",
-      "community": 12,
+      "community": 18,
       "norm_label": "chest x-ray: viral pneumonia"
+    },
+    {
+      "label": "Clinica-LENS",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "clinica_lens",
+      "community": 1,
+      "norm_label": "clinica-lens"
+    },
+    {
+      "label": "Agent Instructions",
+      "file_type": "document",
+      "source_file": "AGENT.md",
+      "id": "agent_md",
+      "community": 8,
+      "norm_label": "agent instructions"
+    },
+    {
+      "label": "Project Instructions",
+      "file_type": "document",
+      "source_file": "GEMINI.md",
+      "id": "gemini_md",
+      "community": 8,
+      "norm_label": "project instructions"
+    },
+    {
+      "label": "Dependencies",
+      "file_type": "document",
+      "source_file": "requirements.txt",
+      "id": "requirements_txt",
+      "community": 19,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "Graphify Knowledge Graph",
+      "file_type": "document",
+      "source_file": "AGENT.md",
+      "id": "graphify_system",
+      "community": 8,
+      "norm_label": "graphify knowledge graph"
+    },
+    {
+      "label": "Vision Layer",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "vision_layer",
+      "community": 1,
+      "norm_label": "vision layer"
+    },
+    {
+      "label": "Language Layer",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "language_layer",
+      "community": 1,
+      "norm_label": "language layer"
+    },
+    {
+      "label": "Fusion Layer",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "fusion_layer",
+      "community": 1,
+      "norm_label": "fusion layer"
+    },
+    {
+      "label": "Verification Layer",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "verification_layer",
+      "community": 1,
+      "norm_label": "verification layer"
+    },
+    {
+      "label": "Explainability Layer",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "explainability_layer",
+      "community": 6,
+      "norm_label": "explainability layer"
+    },
+    {
+      "label": "CheXNet",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "chexnet",
+      "community": 1,
+      "norm_label": "chexnet"
+    },
+    {
+      "label": "SapBERT",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "sapbert",
+      "community": 1,
+      "norm_label": "sapbert"
+    },
+    {
+      "label": "BGE Cross-Encoder",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "bge_cross_encoder",
+      "community": 1,
+      "norm_label": "bge cross-encoder"
+    },
+    {
+      "label": "Multimodal Transformer Fusion",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "transformer_fusion",
+      "community": 1,
+      "norm_label": "multimodal transformer fusion"
+    },
+    {
+      "label": "NLI Fact-Checking",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "nli_fact_checking",
+      "community": 1,
+      "norm_label": "nli fact-checking"
+    },
+    {
+      "label": "Conformal Prediction",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "conformal_prediction",
+      "community": 1,
+      "norm_label": "conformal prediction"
+    },
+    {
+      "label": "Grad-CAM",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "grad_cam",
+      "community": 6,
+      "norm_label": "grad-cam"
+    },
+    {
+      "label": "Clinical Inpainting",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "clinical_inpainting",
+      "community": 6,
+      "norm_label": "clinical inpainting"
+    },
+    {
+      "label": "FastAPI Backend",
+      "file_type": "code",
+      "source_file": "src/api.py",
+      "id": "fastapi_backend",
+      "community": 20,
+      "norm_label": "fastapi backend"
+    },
+    {
+      "label": "Streamlit Dashboard",
+      "file_type": "code",
+      "source_file": "app/app.py",
+      "id": "streamlit_dashboard",
+      "community": 21,
+      "norm_label": "streamlit dashboard"
+    },
+    {
+      "label": "RAG Pipeline",
+      "file_type": "code",
+      "source_file": "src/rag_pipeline.py",
+      "id": "rag_pipeline",
+      "community": 1,
+      "norm_label": "rag pipeline"
+    },
+    {
+      "label": "Unified Orchestrator",
+      "file_type": "code",
+      "source_file": "src/pipeline.py",
+      "id": "unified_orchestrator",
+      "community": 1,
+      "norm_label": "unified orchestrator"
+    },
+    {
+      "label": "Model Architectures",
+      "file_type": "code",
+      "source_file": "src/models.py",
+      "id": "model_architectures",
+      "community": 1,
+      "norm_label": "model architectures"
+    },
+    {
+      "label": "XAI Module",
+      "file_type": "code",
+      "source_file": "src/xai.py",
+      "id": "xai_module",
+      "community": 6,
+      "norm_label": "xai module"
+    },
+    {
+      "label": "Rationale for Clinical Inpainting",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "rationale_inpainting",
+      "community": 6,
+      "norm_label": "rationale for clinical inpainting"
+    },
+    {
+      "label": "Rationale for NLI Fact-Checking",
+      "file_type": "document",
+      "source_file": "README.md",
+      "id": "rationale_nli",
+      "community": 1,
+      "norm_label": "rationale for nli fact-checking"
     }
   ],
   "links": [
     {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/app.py",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "app_streamlit_frontend",
+      "_tgt": "pipeline_clinicalenspipeline",
+      "source": "app_streamlit_frontend",
+      "target": "pipeline_clinicalenspipeline"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/app.py",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "app_streamlit_frontend",
+      "_tgt": "xai_overlay_heatmap",
+      "source": "app_streamlit_frontend",
+      "target": "xai_overlay_heatmap"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\app\\app.py",
-      "source_location": "L22",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L13",
       "weight": 1.0,
-      "_src": "app_app_py",
-      "_tgt": "app_load_pipeline",
-      "source": "app_app_py",
-      "target": "app_load_pipeline",
+      "_src": "src_api_py",
+      "_tgt": "api_diagnosisresponse",
+      "source": "src_api_py",
+      "target": "api_diagnosisresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_src": "src_api_py",
+      "_tgt": "api_predict",
+      "source": "src_api_py",
+      "target": "api_predict",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "_src": "src_api_py",
+      "_tgt": "api_health",
+      "source": "src_api_py",
+      "target": "api_health",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_src": "api_diagnosisresponse",
+      "_tgt": "basemodel",
+      "source": "api_diagnosisresponse",
+      "target": "basemodel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "api_diagnosisresponse",
+      "_tgt": "pipeline_clinicalenspipeline",
+      "source": "api_diagnosisresponse",
+      "target": "pipeline_clinicalenspipeline",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_src": "c_data_science_project_clinica_lens_src_api_py",
+      "_tgt": "api_diagnosisresponse",
+      "source": "api_diagnosisresponse",
+      "target": "c_data_science_project_clinica_lens_src_api_py",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\app\\app.py",
-      "source_location": "L23",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L44",
       "weight": 1.0,
-      "_src": "app_load_pipeline",
-      "_tgt": "pipeline_clinicalenspipeline",
-      "source": "app_load_pipeline",
-      "target": "pipeline_clinicalenspipeline"
+      "_src": "api_predict",
+      "_tgt": "rag_pipeline_medicalrag_load_vector_db",
+      "source": "api_predict",
+      "target": "rag_pipeline_medicalrag_load_vector_db"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L46",
+      "weight": 1.0,
+      "_src": "api_predict",
+      "_tgt": "rag_pipeline_medicalrag_setup_llm",
+      "source": "api_predict",
+      "target": "rag_pipeline_medicalrag_setup_llm"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L5",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L25",
       "weight": 1.0,
-      "_src": "src_models_py",
-      "_tgt": "models_clinicavisionmodel",
-      "source": "src_models_py",
-      "target": "models_clinicavisionmodel",
+      "_src": "c_data_science_project_clinica_lens_src_api_py",
+      "_tgt": "api_predict",
+      "source": "api_predict",
+      "target": "c_data_science_project_clinica_lens_src_api_py",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L34",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\api.py",
+      "source_location": "L68",
       "weight": 1.0,
-      "_src": "src_models_py",
-      "_tgt": "models_clinicafusionmodel",
-      "source": "src_models_py",
-      "target": "models_clinicafusionmodel",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L87",
-      "weight": 1.0,
-      "_src": "src_models_py",
-      "_tgt": "models_clinicatemporalmodel",
-      "source": "src_models_py",
-      "target": "models_clinicatemporalmodel",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L10",
-      "weight": 1.0,
-      "_src": "models_clinicavisionmodel",
-      "_tgt": "models_clinicavisionmodel_init",
-      "source": "models_clinicavisionmodel",
-      "target": "models_clinicavisionmodel_init",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L22",
-      "weight": 1.0,
-      "_src": "models_clinicavisionmodel",
-      "_tgt": "models_clinicavisionmodel_forward",
-      "source": "models_clinicavisionmodel",
-      "target": "models_clinicavisionmodel_forward",
+      "_src": "c_data_science_project_clinica_lens_src_api_py",
+      "_tgt": "api_health",
+      "source": "api_health",
+      "target": "c_data_science_project_clinica_lens_src_api_py",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L6",
-      "weight": 1.0,
-      "_src": "models_rationale_6",
-      "_tgt": "models_clinicavisionmodel",
-      "source": "models_clinicavisionmodel",
-      "target": "models_rationale_6",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "shares_data_with",
-      "confidence": "INFERRED",
-      "source_file": "src/pipeline.py",
+      "confidence_score": 1.0,
+      "source_file": "src/models.py",
       "source_location": null,
       "weight": 1.0,
+      "_src": "models_clinicavisionmodel_rationale",
+      "_tgt": "models_clinicavisionmodel",
+      "source": "models_clinicavisionmodel",
+      "target": "models_clinicavisionmodel_rationale"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L6",
+      "weight": 0.8,
       "_src": "pipeline_clinicalenspipeline",
       "_tgt": "models_clinicavisionmodel",
-      "confidence_score": 0.8,
       "source": "models_clinicavisionmodel",
-      "target": "pipeline_clinicalenspipeline"
+      "target": "pipeline_clinicalenspipeline",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -815,17 +1066,17 @@
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "pipeline_rationale_143",
+      "_src": "pipeline_rationale_105",
       "_tgt": "models_clinicavisionmodel",
       "source": "models_clinicavisionmodel",
-      "target": "pipeline_rationale_143",
+      "target": "pipeline_rationale_105",
       "confidence_score": 0.5
     },
     {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L86",
+      "source_location": "L103",
       "weight": 0.8,
       "_src": "xai_rationale_9",
       "_tgt": "models_clinicavisionmodel",
@@ -837,7 +1088,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L86",
+      "source_location": "L103",
       "weight": 0.8,
       "_src": "xai_rationale_49",
       "_tgt": "models_clinicavisionmodel",
@@ -849,12 +1100,12 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L86",
+      "source_location": "L103",
       "weight": 0.8,
-      "_src": "xai_rationale_69",
+      "_src": "xai_rationale_71",
       "_tgt": "models_clinicavisionmodel",
       "source": "models_clinicavisionmodel",
-      "target": "xai_rationale_69",
+      "target": "xai_rationale_71",
       "confidence_score": 0.5
     },
     {
@@ -870,16 +1121,16 @@
       "target": "pipeline_clinicalenspipeline_init"
     },
     {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/models.py",
-      "source_location": null,
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L15",
       "weight": 1.0,
-      "_src": "models_clinicavisionmodel_rationale",
+      "_src": "test_core_test_vision_model_forward",
       "_tgt": "models_clinicavisionmodel",
       "source": "models_clinicavisionmodel",
-      "target": "models_clinicavisionmodel_rationale"
+      "target": "test_core_test_vision_model_forward"
     },
     {
       "relation": "conceptually_related_to",
@@ -894,64 +1145,28 @@
       "target": "cap_summary_radiographic_findings"
     },
     {
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L11",
-      "weight": 1.0,
-      "_src": "models_clinicavisionmodel_init",
-      "_tgt": "models_clinicatemporalmodel_init",
-      "source": "models_clinicavisionmodel_init",
-      "target": "models_clinicatemporalmodel_init",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L39",
-      "weight": 1.0,
-      "_src": "models_clinicafusionmodel",
-      "_tgt": "models_clinicafusionmodel_init",
-      "source": "models_clinicafusionmodel",
-      "target": "models_clinicafusionmodel_init",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L56",
-      "weight": 1.0,
-      "_src": "models_clinicafusionmodel",
-      "_tgt": "models_clinicafusionmodel_forward",
-      "source": "models_clinicafusionmodel",
-      "target": "models_clinicafusionmodel_forward",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L35",
-      "weight": 1.0,
-      "_src": "models_rationale_35",
-      "_tgt": "models_clinicafusionmodel",
-      "source": "models_clinicafusionmodel",
-      "target": "models_rationale_35",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "shares_data_with",
-      "confidence": "INFERRED",
-      "source_file": "src/pipeline.py",
+      "confidence_score": 1.0,
+      "source_file": "src/models.py",
       "source_location": null,
       "weight": 1.0,
+      "_src": "models_clinicafusionmodel_rationale",
+      "_tgt": "models_clinicafusionmodel",
+      "source": "models_clinicafusionmodel",
+      "target": "models_clinicafusionmodel_rationale"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L6",
+      "weight": 0.8,
       "_src": "pipeline_clinicalenspipeline",
       "_tgt": "models_clinicafusionmodel",
-      "confidence_score": 0.8,
       "source": "models_clinicafusionmodel",
-      "target": "pipeline_clinicalenspipeline"
+      "target": "pipeline_clinicalenspipeline",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -995,10 +1210,10 @@
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "pipeline_rationale_143",
+      "_src": "pipeline_rationale_105",
       "_tgt": "models_clinicafusionmodel",
       "source": "models_clinicafusionmodel",
-      "target": "pipeline_rationale_143",
+      "target": "pipeline_rationale_105",
       "confidence_score": 0.5
     },
     {
@@ -1014,160 +1229,16 @@
       "target": "pipeline_clinicalenspipeline_init"
     },
     {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/models.py",
-      "source_location": null,
-      "weight": 1.0,
-      "_src": "models_clinicafusionmodel_rationale",
-      "_tgt": "models_clinicafusionmodel",
-      "source": "models_clinicafusionmodel",
-      "target": "models_clinicafusionmodel_rationale"
-    },
-    {
-      "relation": "semantically_similar_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.9,
-      "source_file": "README.md",
-      "source_location": null,
-      "weight": 1.0,
-      "_src": "readme_multimodal_fusion",
-      "_tgt": "models_clinicafusionmodel",
-      "source": "models_clinicafusionmodel",
-      "target": "readme_multimodal_fusion"
-    },
-    {
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L40",
-      "weight": 1.0,
-      "_src": "models_clinicafusionmodel_init",
-      "_tgt": "models_clinicatemporalmodel_init",
-      "source": "models_clinicafusionmodel_init",
-      "target": "models_clinicatemporalmodel_init",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L57",
-      "weight": 1.0,
-      "_src": "models_rationale_57",
-      "_tgt": "models_clinicafusionmodel_forward",
-      "source": "models_clinicafusionmodel_forward",
-      "target": "models_rationale_57",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L92",
-      "weight": 1.0,
-      "_src": "models_clinicatemporalmodel",
-      "_tgt": "models_clinicatemporalmodel_init",
-      "source": "models_clinicatemporalmodel",
-      "target": "models_clinicatemporalmodel_init",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L102",
-      "weight": 1.0,
-      "_src": "models_clinicatemporalmodel",
-      "_tgt": "models_clinicatemporalmodel_forward",
-      "source": "models_clinicatemporalmodel",
-      "target": "models_clinicatemporalmodel_forward",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\models.py",
-      "source_location": "L88",
-      "weight": 1.0,
-      "_src": "models_rationale_88",
-      "_tgt": "models_clinicatemporalmodel",
-      "source": "models_clinicatemporalmodel",
-      "target": "models_rationale_88",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L6",
-      "weight": 0.8,
-      "_src": "pipeline_clinicalenspipeline",
-      "_tgt": "models_clinicatemporalmodel",
-      "source": "models_clinicatemporalmodel",
-      "target": "pipeline_clinicalenspipeline",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L6",
-      "weight": 0.8,
-      "_src": "pipeline_rationale_11",
-      "_tgt": "models_clinicatemporalmodel",
-      "source": "models_clinicatemporalmodel",
-      "target": "pipeline_rationale_11",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L6",
-      "weight": 0.8,
-      "_src": "pipeline_rationale_42",
-      "_tgt": "models_clinicatemporalmodel",
-      "source": "models_clinicatemporalmodel",
-      "target": "pipeline_rationale_42",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L6",
-      "weight": 0.8,
-      "_src": "pipeline_rationale_70",
-      "_tgt": "models_clinicatemporalmodel",
-      "source": "models_clinicatemporalmodel",
-      "target": "pipeline_rationale_70",
-      "confidence_score": 0.5
-    },
-    {
-      "relation": "uses",
-      "confidence": "INFERRED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L6",
-      "weight": 0.8,
-      "_src": "pipeline_rationale_143",
-      "_tgt": "models_clinicatemporalmodel",
-      "source": "models_clinicatemporalmodel",
-      "target": "pipeline_rationale_143",
-      "confidence_score": 0.5
-    },
-    {
       "relation": "calls",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
       "source_location": "L21",
       "weight": 1.0,
-      "_src": "pipeline_clinicalenspipeline_init",
-      "_tgt": "models_clinicatemporalmodel",
-      "source": "models_clinicatemporalmodel",
-      "target": "pipeline_clinicalenspipeline_init"
+      "_src": "test_core_test_fusion_model_forward",
+      "_tgt": "models_clinicafusionmodel",
+      "source": "models_clinicafusionmodel",
+      "target": "test_core_test_fusion_model_forward"
     },
     {
       "relation": "contains",
@@ -1221,7 +1292,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L142",
+      "source_location": "L104",
       "weight": 1.0,
       "_src": "pipeline_clinicalenspipeline",
       "_tgt": "pipeline_clinicalenspipeline_chat",
@@ -1242,28 +1313,40 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "shares_data_with",
+      "relation": "uses",
       "confidence": "INFERRED",
-      "source_file": "src/pipeline.py",
-      "source_location": null,
-      "weight": 1.0,
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L7",
+      "weight": 0.8,
       "_src": "pipeline_clinicalenspipeline",
       "_tgt": "rag_pipeline_medicalrag",
-      "confidence_score": 0.8,
       "source": "pipeline_clinicalenspipeline",
-      "target": "rag_pipeline_medicalrag"
+      "target": "rag_pipeline_medicalrag",
+      "confidence_score": 0.5
     },
     {
       "relation": "calls",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/app.py",
-      "source_location": null,
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L48",
       "weight": 1.0,
-      "_src": "app_streamlit_frontend",
+      "_src": "test_core_test_pipeline_initialization",
       "_tgt": "pipeline_clinicalenspipeline",
       "source": "pipeline_clinicalenspipeline",
-      "target": "app_streamlit_frontend"
+      "target": "test_core_test_pipeline_initialization"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_src": "c_data_science_project_clinica_lens_src_pipeline_py",
+      "_tgt": "pipeline_clinicalenspipeline",
+      "source": "pipeline_clinicalenspipeline",
+      "target": "c_data_science_project_clinica_lens_src_pipeline_py",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -1276,18 +1359,6 @@
       "_tgt": "rag_pipeline_medicalrag",
       "source": "pipeline_clinicalenspipeline_init",
       "target": "rag_pipeline_medicalrag"
-    },
-    {
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L74",
-      "weight": 1.0,
-      "_src": "pipeline_clinicalenspipeline_predict",
-      "_tgt": "pipeline_clinicalenspipeline_load_and_window_image",
-      "source": "pipeline_clinicalenspipeline_load_and_window_image",
-      "target": "pipeline_clinicalenspipeline_predict",
-      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -1314,51 +1385,15 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "calls",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L91",
-      "weight": 1.0,
-      "_src": "pipeline_clinicalenspipeline_predict",
-      "_tgt": "rag_pipeline_medicalrag_explain_diagnosis",
-      "source": "pipeline_clinicalenspipeline_predict",
-      "target": "rag_pipeline_medicalrag_explain_diagnosis"
-    },
-    {
-      "relation": "calls",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L119",
-      "weight": 1.0,
-      "_src": "pipeline_clinicalenspipeline_predict",
-      "_tgt": "xai_get_grad_cam",
-      "source": "pipeline_clinicalenspipeline_predict",
-      "target": "xai_get_grad_cam"
-    },
-    {
-      "relation": "calls",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L122",
-      "weight": 1.0,
-      "_src": "pipeline_clinicalenspipeline_predict",
-      "_tgt": "xai_generate_counterfactual",
-      "source": "pipeline_clinicalenspipeline_predict",
-      "target": "xai_generate_counterfactual"
-    },
-    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L143",
+      "source_location": "L105",
       "weight": 1.0,
-      "_src": "pipeline_rationale_143",
+      "_src": "pipeline_rationale_105",
       "_tgt": "pipeline_clinicalenspipeline_chat",
       "source": "pipeline_clinicalenspipeline_chat",
-      "target": "pipeline_rationale_143",
+      "target": "pipeline_rationale_105",
       "confidence_score": 1.0
     },
     {
@@ -1366,7 +1401,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
-      "source_location": "L144",
+      "source_location": "L106",
       "weight": 1.0,
       "_src": "pipeline_clinicalenspipeline_chat",
       "_tgt": "rag_pipeline_medicalrag_chat_vqa",
@@ -1415,9 +1450,9 @@
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\pipeline.py",
       "source_location": "L7",
       "weight": 0.8,
-      "_src": "pipeline_rationale_143",
+      "_src": "pipeline_rationale_105",
       "_tgt": "rag_pipeline_medicalrag",
-      "source": "pipeline_rationale_143",
+      "source": "pipeline_rationale_105",
       "target": "rag_pipeline_medicalrag",
       "confidence_score": 0.5
     },
@@ -1425,7 +1460,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L12",
+      "source_location": "L17",
       "weight": 1.0,
       "_src": "src_rag_pipeline_py",
       "_tgt": "rag_pipeline_medicalrag",
@@ -1437,7 +1472,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L17",
+      "source_location": "L23",
       "weight": 1.0,
       "_src": "rag_pipeline_medicalrag",
       "_tgt": "rag_pipeline_medicalrag_init",
@@ -1449,7 +1484,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L34",
+      "source_location": "L52",
       "weight": 1.0,
       "_src": "rag_pipeline_medicalrag",
       "_tgt": "rag_pipeline_medicalrag_ingest_documents",
@@ -1461,7 +1496,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L72",
+      "source_location": "L94",
       "weight": 1.0,
       "_src": "rag_pipeline_medicalrag",
       "_tgt": "rag_pipeline_medicalrag_load_vector_db",
@@ -1473,7 +1508,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L92",
+      "source_location": "L114",
       "weight": 1.0,
       "_src": "rag_pipeline_medicalrag",
       "_tgt": "rag_pipeline_medicalrag_setup_llm",
@@ -1485,7 +1520,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L123",
+      "source_location": "L144",
       "weight": 1.0,
       "_src": "rag_pipeline_medicalrag",
       "_tgt": "rag_pipeline_medicalrag_verify_explanation",
@@ -1497,7 +1532,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L139",
+      "source_location": "L167",
       "weight": 1.0,
       "_src": "rag_pipeline_medicalrag",
       "_tgt": "rag_pipeline_medicalrag_explain_diagnosis",
@@ -1509,7 +1544,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L170",
+      "source_location": "L198",
       "weight": 1.0,
       "_src": "rag_pipeline_medicalrag",
       "_tgt": "rag_pipeline_medicalrag_chat_vqa",
@@ -1521,67 +1556,79 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L13",
+      "source_location": "L18",
       "weight": 1.0,
-      "_src": "rag_pipeline_rationale_13",
+      "_src": "rag_pipeline_rationale_18",
       "_tgt": "rag_pipeline_medicalrag",
       "source": "rag_pipeline_medicalrag",
-      "target": "rag_pipeline_rationale_13",
+      "target": "rag_pipeline_rationale_18",
       "confidence_score": 1.0
     },
     {
-      "relation": "semantically_similar_to",
+      "relation": "calls",
       "confidence": "INFERRED",
-      "confidence_score": 0.9,
-      "source_file": "README.md",
-      "source_location": null,
+      "confidence_score": 0.8,
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L39",
       "weight": 1.0,
-      "_src": "readme_rag",
+      "_src": "test_core_test_rag_initialization",
       "_tgt": "rag_pipeline_medicalrag",
       "source": "rag_pipeline_medicalrag",
-      "target": "readme_rag"
+      "target": "test_core_test_rag_initialization"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_src": "c_data_science_project_clinica_lens_src_rag_pipeline_py",
+      "_tgt": "rag_pipeline_medicalrag",
+      "source": "rag_pipeline_medicalrag",
+      "target": "c_data_science_project_clinica_lens_src_rag_pipeline_py",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L35",
+      "source_location": "L53",
       "weight": 1.0,
-      "_src": "rag_pipeline_rationale_35",
+      "_src": "rag_pipeline_rationale_53",
       "_tgt": "rag_pipeline_medicalrag_ingest_documents",
       "source": "rag_pipeline_medicalrag_ingest_documents",
-      "target": "rag_pipeline_rationale_35",
+      "target": "rag_pipeline_rationale_53",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L73",
+      "source_location": "L95",
       "weight": 1.0,
-      "_src": "rag_pipeline_rationale_73",
+      "_src": "rag_pipeline_rationale_95",
       "_tgt": "rag_pipeline_medicalrag_load_vector_db",
       "source": "rag_pipeline_medicalrag_load_vector_db",
-      "target": "rag_pipeline_rationale_73",
+      "target": "rag_pipeline_rationale_95",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L93",
+      "source_location": "L115",
       "weight": 1.0,
-      "_src": "rag_pipeline_rationale_93",
+      "_src": "rag_pipeline_rationale_115",
       "_tgt": "rag_pipeline_medicalrag_setup_llm",
       "source": "rag_pipeline_medicalrag_setup_llm",
-      "target": "rag_pipeline_rationale_93",
+      "target": "rag_pipeline_rationale_115",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L157",
+      "source_location": "L185",
       "weight": 1.0,
       "_src": "rag_pipeline_medicalrag_explain_diagnosis",
       "_tgt": "rag_pipeline_medicalrag_verify_explanation",
@@ -1593,36 +1640,36 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L124",
+      "source_location": "L145",
       "weight": 1.0,
-      "_src": "rag_pipeline_rationale_124",
+      "_src": "rag_pipeline_rationale_145",
       "_tgt": "rag_pipeline_medicalrag_verify_explanation",
       "source": "rag_pipeline_medicalrag_verify_explanation",
-      "target": "rag_pipeline_rationale_124",
+      "target": "rag_pipeline_rationale_145",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L140",
+      "source_location": "L168",
       "weight": 1.0,
-      "_src": "rag_pipeline_rationale_140",
+      "_src": "rag_pipeline_rationale_168",
       "_tgt": "rag_pipeline_medicalrag_explain_diagnosis",
       "source": "rag_pipeline_medicalrag_explain_diagnosis",
-      "target": "rag_pipeline_rationale_140",
+      "target": "rag_pipeline_rationale_168",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\rag_pipeline.py",
-      "source_location": "L171",
+      "source_location": "L199",
       "weight": 1.0,
-      "_src": "rag_pipeline_rationale_171",
+      "_src": "rag_pipeline_rationale_199",
       "_tgt": "rag_pipeline_medicalrag_chat_vqa",
       "source": "rag_pipeline_medicalrag_chat_vqa",
-      "target": "rag_pipeline_rationale_171",
+      "target": "rag_pipeline_rationale_199",
       "confidence_score": 1.0
     },
     {
@@ -1653,7 +1700,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L68",
+      "source_location": "L70",
       "weight": 1.0,
       "_src": "src_xai_py",
       "_tgt": "xai_generate_counterfactual",
@@ -1674,28 +1721,16 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "rationale_for",
+      "relation": "contains",
       "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/xai.py",
-      "source_location": null,
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
+      "source_location": "L8",
       "weight": 1.0,
-      "_src": "xai_get_grad_cam_rationale",
+      "_src": "c_data_science_project_clinica_lens_src_xai_py",
       "_tgt": "xai_get_grad_cam",
       "source": "xai_get_grad_cam",
-      "target": "xai_get_grad_cam_rationale"
-    },
-    {
-      "relation": "semantically_similar_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.9,
-      "source_file": "README.md",
-      "source_location": null,
-      "weight": 1.0,
-      "_src": "readme_xai",
-      "_tgt": "xai_get_grad_cam",
-      "source": "xai_get_grad_cam",
-      "target": "readme_xai"
+      "target": "c_data_science_project_clinica_lens_src_xai_py",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -1710,27 +1745,159 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "calls",
+      "relation": "contains",
       "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/app.py",
-      "source_location": null,
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
+      "source_location": "L48",
       "weight": 1.0,
-      "_src": "app_streamlit_frontend",
+      "_src": "c_data_science_project_clinica_lens_src_xai_py",
       "_tgt": "xai_overlay_heatmap",
       "source": "xai_overlay_heatmap",
-      "target": "app_streamlit_frontend"
+      "target": "c_data_science_project_clinica_lens_src_xai_py",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
-      "source_location": "L69",
+      "source_location": "L71",
       "weight": 1.0,
-      "_src": "xai_rationale_69",
+      "_src": "xai_rationale_71",
       "_tgt": "xai_generate_counterfactual",
       "source": "xai_generate_counterfactual",
-      "target": "xai_rationale_69",
+      "target": "xai_rationale_71",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\src\\xai.py",
+      "source_location": "L70",
+      "weight": 1.0,
+      "_src": "c_data_science_project_clinica_lens_src_xai_py",
+      "_tgt": "xai_generate_counterfactual",
+      "source": "xai_generate_counterfactual",
+      "target": "c_data_science_project_clinica_lens_src_xai_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_src": "tests_test_core_py",
+      "_tgt": "test_core_test_vision_model_forward",
+      "source": "tests_test_core_py",
+      "target": "test_core_test_vision_model_forward",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_src": "tests_test_core_py",
+      "_tgt": "test_core_test_fusion_model_forward",
+      "source": "tests_test_core_py",
+      "target": "test_core_test_fusion_model_forward",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_src": "tests_test_core_py",
+      "_tgt": "test_core_test_temporal_model_forward",
+      "source": "tests_test_core_py",
+      "target": "test_core_test_temporal_model_forward",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "_src": "tests_test_core_py",
+      "_tgt": "test_core_test_rag_initialization",
+      "source": "tests_test_core_py",
+      "target": "test_core_test_rag_initialization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_src": "tests_test_core_py",
+      "_tgt": "test_core_test_pipeline_initialization",
+      "source": "tests_test_core_py",
+      "target": "test_core_test_pipeline_initialization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_src": "c_data_science_project_clinica_lens_tests_test_core_py",
+      "_tgt": "test_core_test_vision_model_forward",
+      "source": "test_core_test_vision_model_forward",
+      "target": "c_data_science_project_clinica_lens_tests_test_core_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_src": "c_data_science_project_clinica_lens_tests_test_core_py",
+      "_tgt": "test_core_test_fusion_model_forward",
+      "source": "test_core_test_fusion_model_forward",
+      "target": "c_data_science_project_clinica_lens_tests_test_core_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_src": "c_data_science_project_clinica_lens_tests_test_core_py",
+      "_tgt": "test_core_test_temporal_model_forward",
+      "source": "test_core_test_temporal_model_forward",
+      "target": "c_data_science_project_clinica_lens_tests_test_core_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "_src": "c_data_science_project_clinica_lens_tests_test_core_py",
+      "_tgt": "test_core_test_rag_initialization",
+      "source": "test_core_test_rag_initialization",
+      "target": "c_data_science_project_clinica_lens_tests_test_core_py",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\DATA SCIENCE\\Project\\Clinica-LENS\\tests\\test_core.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_src": "c_data_science_project_clinica_lens_tests_test_core_py",
+      "_tgt": "test_core_test_pipeline_initialization",
+      "source": "test_core_test_pipeline_initialization",
+      "target": "c_data_science_project_clinica_lens_tests_test_core_py",
       "confidence_score": 1.0
     },
     {
@@ -1756,23 +1923,247 @@
       "_tgt": "cap_summary_radiographic_findings",
       "source": "cap_summary_community_acquired_pneumonia",
       "target": "cap_summary_radiographic_findings"
-    }
-  ],
-  "hyperedges": [
+    },
     {
-      "id": "clinica_lens_core_pipeline",
-      "label": "Clinica-LENS Core Architecture",
-      "nodes": [
-        "pipeline_clinicalenspipeline",
-        "models_clinicavisionmodel",
-        "models_clinicafusionmodel",
-        "rag_pipeline_medicalrag",
-        "xai_get_grad_cam"
-      ],
-      "relation": "form",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "clinica_lens",
+      "_tgt": "vision_layer",
+      "source": "clinica_lens",
+      "target": "vision_layer"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "clinica_lens",
+      "_tgt": "language_layer",
+      "source": "clinica_lens",
+      "target": "language_layer"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "clinica_lens",
+      "_tgt": "fusion_layer",
+      "source": "clinica_lens",
+      "target": "fusion_layer"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "clinica_lens",
+      "_tgt": "verification_layer",
+      "source": "clinica_lens",
+      "target": "verification_layer"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "clinica_lens",
+      "_tgt": "explainability_layer",
+      "source": "clinica_lens",
+      "target": "explainability_layer"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "GEMINI.md",
+      "_src": "gemini_md",
+      "_tgt": "agent_md",
+      "source": "agent_md",
+      "target": "gemini_md"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENT.md",
+      "_src": "agent_md",
+      "_tgt": "graphify_system",
+      "source": "agent_md",
+      "target": "graphify_system"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "GEMINI.md",
+      "_src": "gemini_md",
+      "_tgt": "graphify_system",
+      "source": "gemini_md",
+      "target": "graphify_system"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "vision_layer",
+      "_tgt": "chexnet",
+      "source": "vision_layer",
+      "target": "chexnet"
+    },
+    {
+      "relation": "implements",
       "confidence": "INFERRED",
       "confidence_score": 0.9,
-      "source_file": "src/pipeline.py"
+      "source_file": "README.md",
+      "_src": "model_architectures",
+      "_tgt": "vision_layer",
+      "source": "vision_layer",
+      "target": "model_architectures"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "language_layer",
+      "_tgt": "sapbert",
+      "source": "language_layer",
+      "target": "sapbert"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "language_layer",
+      "_tgt": "bge_cross_encoder",
+      "source": "language_layer",
+      "target": "bge_cross_encoder"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "README.md",
+      "_src": "rag_pipeline",
+      "_tgt": "language_layer",
+      "source": "language_layer",
+      "target": "rag_pipeline"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "fusion_layer",
+      "_tgt": "transformer_fusion",
+      "source": "fusion_layer",
+      "target": "transformer_fusion"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "README.md",
+      "_src": "model_architectures",
+      "_tgt": "fusion_layer",
+      "source": "fusion_layer",
+      "target": "model_architectures"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "verification_layer",
+      "_tgt": "nli_fact_checking",
+      "source": "verification_layer",
+      "target": "nli_fact_checking"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "verification_layer",
+      "_tgt": "conformal_prediction",
+      "source": "verification_layer",
+      "target": "conformal_prediction"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "README.md",
+      "_src": "rag_pipeline",
+      "_tgt": "verification_layer",
+      "source": "verification_layer",
+      "target": "rag_pipeline"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "explainability_layer",
+      "_tgt": "grad_cam",
+      "source": "explainability_layer",
+      "target": "grad_cam"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "explainability_layer",
+      "_tgt": "clinical_inpainting",
+      "source": "explainability_layer",
+      "target": "clinical_inpainting"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "README.md",
+      "_src": "xai_module",
+      "_tgt": "explainability_layer",
+      "source": "explainability_layer",
+      "target": "xai_module"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "rationale_nli",
+      "_tgt": "nli_fact_checking",
+      "source": "nli_fact_checking",
+      "target": "rationale_nli"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "unified_orchestrator",
+      "_tgt": "conformal_prediction",
+      "source": "conformal_prediction",
+      "target": "unified_orchestrator"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "_src": "rationale_inpainting",
+      "_tgt": "clinical_inpainting",
+      "source": "clinical_inpainting",
+      "target": "rationale_inpainting"
     }
-  ]
+  ],
+  "hyperedges": []
 }
