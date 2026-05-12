@@ -1,5 +1,11 @@
 # Clinica-LENS: Advanced Multimodal Clinical Diagnostic Partner
 
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange?logo=tensorflow)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.x-red?logo=pytorch)
+
 Clinica-LENS is a high-fidelity Medical AI assistant designed to transform radiology workflows. It moves beyond simple classification by acting as a collaborative partner, integrating computer vision, natural language processing, and state-of-the-art explainability.
 
 ## 🌟 Advanced Clinical Features
