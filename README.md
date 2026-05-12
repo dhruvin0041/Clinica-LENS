@@ -1,59 +1,67 @@
-# Clinica-LENS: Explainable Multimodal Diagnostic Assistant
+# Clinica-LENS: Advanced Multimodal Clinical Diagnostic Partner
 
-Clinica-LENS is an advanced Medical AI prototype designed to assist clinicians by combining computer vision and natural language processing for chest radiography analysis. It integrates deep learning-based image feature extraction with Retrieval-Augmented Generation (RAG) to provide diagnostic predictions grounded in peer-reviewed medical literature.
+Clinica-LENS is a high-fidelity Medical AI assistant designed to transform radiology workflows. It moves beyond simple classification by acting as a collaborative partner, integrating computer vision, natural language processing, and state-of-the-art explainability.
 
-## 🌟 Key Features
+## 🌟 Advanced Clinical Features
 
-*   **Multimodal Fusion:** Integrates ResNet50 vision embeddings with LLM-based text embeddings (using `all-mpnet-base-v2`) to perform binary classification (Positive/Negative diagnosis).
-*   **Retrieval-Augmented Generation (RAG):** Uses a FAISS Vector Database to retrieve relevant clinical context from local medical PDFs, providing an LLM-generated explanation grounded in literature.
-*   **Explainable AI (XAI):** Implements **Grad-CAM** (via Captum) to generate visual heatmaps, highlighting the specific regions in the Chest X-ray that influenced the model's prediction.
-*   **Interactive Dashboard:** A full-stack Streamlit interface for seamless clinical interaction, including document ingestion and real-time diagnostic generation.
+### 🧠 Domain-Specific Intelligence
+*   **Vision (CheXNet):** Utilizes a **DenseNet121** backbone optimized for chest radiography, capable of detecting subtle clinical markers.
+*   **Text (SapBERT):** Leverages **SapBERT** embeddings, providing deep understanding of medical terminology and entity alignment.
 
-## 🏗️ Architecture
+### 🔬 Multi-Modal Reasoning
+*   **Transformer Fusion:** Employs a **Multimodal Transformer with Cross-Attention**, allowing clinical notes to dynamically guide the vision model's focus.
+*   **Conversational VQA:** A stateful **Chat-with-Scan** interface that allows clinicians to interrogate images with natural language questions.
 
-1.  **Vision Layer:** ResNet50 backbone (pre-trained on ImageNet) used as a feature encoder.
-2.  **Language Layer:** LangChain-powered RAG pipeline using `TinyLlama-1.1B` and `sentence-transformers`.
-3.  **Fusion Layer:** A custom neural network that concatenates multimodal embeddings and predicts the clinical outcome.
-4.  **Explanation Layer:** Dual-modality explanations via visual heatmaps (Vision) and retrieved clinical context (Text).
+### 🛡️ Safety & Clinical Rigor
+*   **Uncertainty Estimation:** Uses **Monte Carlo (MC) Dropout** to provide a confidence interval (±%) for every diagnosis, flagging high-uncertainty cases for manual review.
+*   **Hallucination Guardrails:** A self-correction loop that verifies AI claims against peer-reviewed medical literature.
+*   **Hybrid Search:** Combines semantic (FAISS) and keyword (BM25) retrieval for zero-miss clinical grounding.
+
+### 🏥 Professional Radiology Workflow
+*   **Longitudinal Analysis:** A Siamese network architecture that compares **Current vs. Prior** scans to calculate a **Temporal Progression Score**.
+*   **Native DICOM Support:** Support for high-bit depth 16-bit medical data with real-time **Clinical Windowing** (Level/Width) controls.
+*   **Structured Reporting:** Automatically generates formal reports with **Findings** and **Impression** sections.
+*   **Counterfactual XAI:** "What-If" analysis that quantifies how specific image regions influence the final diagnostic probability.
+
+## 🏗️ Technical Architecture
+
+1.  **Vision Layer:** DenseNet121 feature map extractor.
+2.  **Language Layer:** SapBERT embeddings with Ensemble Retrieval (FAISS + BM25).
+3.  **Fusion Layer:** Transformer-based sequence encoder.
+4.  **Temporal Layer:** Siamese comparison network for progression monitoring.
+5.  **Explainability:** Grad-CAM spatial attention + Feature Occlusion counterfactuals.
 
 ## 🚀 Getting Started
-
-### Prerequisites
-* Python 3.10+
-* 8GB+ RAM (16GB recommended for LLM execution)
 
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/dhruvin0041/Clinica-LENS
    cd Clinica-LENS
    ```
 2. Install dependencies:
    ```bash
    pip install -r requirements.txt
-   pip install langchain-community langchain-text-splitters
    ```
 
-### Setup
-1. **Literature:** Place medical PDFs in `data/medical_literature/`.
+### Usage
+1. **Literature Setup:** Place medical PDFs in `data/medical_literature/`.
 2. **Run the Dashboard:**
    ```bash
    streamlit run app/app.py
    ```
-3. **Initialize:** Use the sidebar buttons in the app to **Ingest Medical Literature** and **Setup LLM**.
+3. **Initialize:** Use the sidebar to **Re-Ingest Literature** and **Setup LLM**.
 
 ## 📁 Project Structure
 
-* `app/`: Streamlit frontend application.
-* `src/models.py`: Vision and Fusion model architectures.
-* `src/rag_pipeline.py`: RAG logic and vector store management.
-* `src/xai.py`: Grad-CAM implementation.
-* `src/pipeline.py`: The unified orchestrator for the system.
-* `data/`: Directory for medical literature and images.
-* `models/`: Storage for the FAISS index and model weights.
+* `app/app.py`: Next-Gen Streamlit dashboard with VQA and DICOM controls.
+* `src/models.py`: CheXNet, Transformer Fusion, and Temporal Siamese architectures.
+* `src/rag_pipeline.py`: Hybrid search, SapBERT embeddings, and chat history management.
+* `src/pipeline.py`: The unified clinical orchestrator.
+* `src/xai.py`: Grad-CAM and Counterfactual logic.
 
-## 🎓 Portfolio Note
-This project was developed to demonstrate expertise in **Multimodal Fusion**, **Explainable AI (XAI)**, and **Medical Machine Learning**. It highlights the ability to move beyond "black-box" models by grounding AI predictions in verified medical literature and visual evidence.
+## 🎓 Research Prototype
+This project demonstrates expertise in **Multimodal Medical AI**, **Clinical Decision Support**, and **Safety-Critical Machine Learning**. It highlights the ability to build AI systems that are transparent, verifiable, and aligned with clinical standards.
 
 ---
 *Disclaimer: This is a research prototype for portfolio purposes and is not intended for real-world clinical diagnosis.*
