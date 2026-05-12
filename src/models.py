@@ -84,17 +84,44 @@ class ClinicaFusionModel(nn.Module):
         
         return logits
 
+class ClinicaTemporalModel(nn.Module):
+    """
+    Siamese Network for Longitudinal Analysis.
+    Compares current vision embeddings with a "prior" scan to assess progression.
+    """
+    def __init__(self, vision_dim=512, hidden_dim=256):
+        super(ClinicaTemporalModel, self).__init__()
+        self.diff_layer = nn.Sequential(
+            nn.Linear(vision_dim, hidden_dim), # Process the difference vector
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(hidden_dim, 1), # Output a scalar progression score
+            nn.Tanh() # -1 (improved) to +1 (progressed)
+        )
+        
+    def forward(self, current_emb, prior_emb):
+        # Calculate absolute difference (Siamese approach)
+        diff = torch.abs(current_emb - prior_emb)
+        progression_score = self.diff_layer(diff)
+        return progression_score
+
 if __name__ == "__main__":
     # Test initialization
     v_model = ClinicaVisionModel()
     f_model = ClinicaFusionModel()
+    t_model = ClinicaTemporalModel()
     
     dummy_img = torch.randn(2, 3, 224, 224)
     dummy_text = torch.randn(2, 768)
+    dummy_prior = torch.randn(2, 512)
     
     vis_feat = v_model(dummy_img, return_spatial=True)
+    vis_emb = v_model(dummy_img)
+    
     logits = f_model(vis_feat, dummy_text)
+    progression = t_model(vis_emb, dummy_prior)
     
     print(f"Vision features shape: {vis_feat.shape}")
     print(f"Fusion logits shape: {logits.shape}")
+    print(f"Progression score shape: {progression.shape}")
     print("Clinica-LENS Upgraded Models Initialized successfully.")

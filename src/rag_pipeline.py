@@ -29,6 +29,7 @@ class MedicalRAG:
         self.ensemble_retriever = None
         self.llm = None
         self.qa_chain = None
+        self.chat_history = [] # For Conversational VQA
 
     def ingest_documents(self):
         """Loads PDFs, splits them, and creates Hybrid Search indexes."""
@@ -96,10 +97,18 @@ class MedicalRAG:
         pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_new_tokens=256, temperature=0.1)
         self.llm = HuggingFacePipeline(pipeline=pipe)
 
-        template = """Context: {context}
+        # Phase 3: Structured Report Template
+        template = """You are a senior radiologist. Based on the clinical context provided, generate a structured radiology report.
+        Strictly follow this format:
+        FINDINGS: <Detailed observations from the context>
+        IMPRESSION: <Your clinical conclusion>
+        
+        If the context doesn't have the answer, say 'Insufficient literature context'.
+        
+        Context: {context}
         Question: {question}
-        Explain the potential diagnosis based ONLY on the context above. If unsure, say 'I cannot verify this'.
-        Clinical Explanation:"""
+        
+        Structured Radiology Report:"""
         PROMPT = PromptTemplate(template=template, input_variables=["context", "question"])
 
         if self.ensemble_retriever:
@@ -128,18 +137,54 @@ class MedicalRAG:
         return "Verification Unavailable"
 
     def explain_diagnosis(self, query):
-        """Generates a verified explanation."""
+        """Generates a verified structured report."""
         if not self.qa_chain:
             return {"explanation": "RAG not initialized", "status": "Error"}
         
         result = self.qa_chain({"query": query})
+        output = result["result"]
         context_text = "\n".join([doc.page_content for doc in result["source_documents"]])
         
+        # Parse Structured Report
+        findings = "N/A"
+        impression = "N/A"
+        if "FINDINGS:" in output and "IMPRESSION:" in output:
+            parts = output.split("IMPRESSION:")
+            findings = parts[0].replace("FINDINGS:", "").strip()
+            impression = parts[1].strip()
+        
         # Run verification loop
-        status = self.verify_explanation(context_text, result["result"])
+        status = self.verify_explanation(context_text, output)
+        
+        # Store initial context in chat history for VQA (Phase 4)
+        self.chat_history = [("System", f"Context: {context_text}")]
         
         return {
-            "explanation": result["result"],
+            "findings": findings,
+            "impression": impression,
+            "full_report": output,
             "status": status,
             "sources": list(set([doc.metadata.get("source", "Unknown") for doc in result["source_documents"]]))
         }
+
+    def chat_vqa(self, user_query):
+        """Phase 4: Conversational Visual QA loop."""
+        if not self.llm:
+            return "LLM not initialized."
+        
+        # Construct chat context
+        history_str = "\n".join([f"{role}: {msg}" for role, msg in self.chat_history[-5:]])
+        prompt = f"""You are a medical assistant helping a radiologist interrogate a chest X-ray. 
+        Answer the following question based on the previous context and report.
+        
+        History:
+        {history_str}
+        
+        User Question: {user_query}
+        Assistant Answer:"""
+        
+        response = self.llm(prompt)
+        self.chat_history.append(("User", user_query))
+        self.chat_history.append(("Assistant", response))
+        
+        return response

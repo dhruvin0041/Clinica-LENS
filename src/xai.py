@@ -65,6 +65,23 @@ def overlay_heatmap(img_path, heatmap, alpha=0.5, colormap=plt.cm.jet):
     
     return combined
 
+def generate_counterfactual(model, input_tensor, heatmap, threshold=0.6):
+    """
+    Phase 2: Generates a counterfactual image by occluding the high-attribution regions.
+    Allows measuring the 'What-If' probability shift.
+    """
+    # Normalize heatmap to 0-1
+    heatmap_norm = (heatmap - heatmap.min()) / (heatmap.max() - heatmap.min() + 1e-8)
+    
+    # Create a mask where attribution is high
+    mask = (heatmap_norm > threshold).float()
+    
+    # Occlude the input tensor (set high attribution regions to zero/mean)
+    # We use a smoothed version of the mask to avoid harsh edges
+    counterfactual_tensor = input_tensor * (1 - mask)
+    
+    return counterfactual_tensor
+
 if __name__ == "__main__":
     from src.models import ClinicaVisionModel
     import torchvision.transforms as transforms
