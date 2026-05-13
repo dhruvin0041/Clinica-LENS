@@ -1,11 +1,12 @@
-# Graph Report - .  (2026-05-12)
+# Graph Report - Clinica-LENS  (2026-05-13)
 
 ## Corpus Check
-- Corpus is ~19,828 words - fits in a single context window. You may not need a graph.
+- 9 files · ~19,848 words
+- Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 93 nodes · 113 edges · 14 communities detected
-- Extraction: 69% EXTRACTED · 31% INFERRED · 0% AMBIGUOUS · INFERRED: 35 edges (avg confidence: 0.65)
+- 72 nodes · 97 edges · 12 communities detected
+- Extraction: 59% EXTRACTED · 41% INFERRED · 0% AMBIGUOUS · INFERRED: 40 edges (avg confidence: 0.62)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -16,124 +17,119 @@
 - [[_COMMUNITY_Community 4|Community 4]]
 - [[_COMMUNITY_Community 5|Community 5]]
 - [[_COMMUNITY_Community 6|Community 6]]
-- [[_COMMUNITY_Community 7|Community 7]]
-- [[_COMMUNITY_Community 8|Community 8]]
-- [[_COMMUNITY_Community 17|Community 17]]
-- [[_COMMUNITY_Community 18|Community 18]]
-- [[_COMMUNITY_Community 19|Community 19]]
-- [[_COMMUNITY_Community 20|Community 20]]
-- [[_COMMUNITY_Community 21|Community 21]]
+- [[_COMMUNITY_Community 9|Community 9]]
+- [[_COMMUNITY_Community 10|Community 10]]
+- [[_COMMUNITY_Community 11|Community 11]]
+- [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 13|Community 13]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `MedicalRAG` - 17 edges
-2. `ClinicaLENSPipeline` - 13 edges
-3. `ClinicaVisionModel` - 12 edges
-4. `ClinicaFusionModel` - 8 edges
-5. `Clinica-LENS` - 5 edges
-6. `DiagnosisResponse` - 4 edges
-7. `predict()` - 4 edges
-8. `Unified Upgraded Pipeline for Clinica-LENS.     Orchestrates CheXNet Vision, Sa` - 4 edges
-9. `Phase 4: Support DICOM windowing for high-bit depth images.` - 4 edges
-10. `Runs the multimodal prediction pipeline with Temporal analysis, Counterfactuals,` - 4 edges
+1. `ClinicaLENSPipeline` - 16 edges
+2. `MedicalRAG` - 16 edges
+3. `ClinicaVisionModel` - 14 edges
+4. `ClinicaFusionModel` - 11 edges
+5. `ClinicaTemporalModel` - 11 edges
+6. `Unified Upgraded Pipeline for Clinica-LENS.     Orchestrates CheXNet Vision, Sa` - 5 edges
+7. `Phase 4: Support DICOM windowing for high-bit depth images.` - 5 edges
+8. `Runs the multimodal prediction pipeline with Temporal analysis, Counterfactuals,` - 5 edges
+9. `Phase 4: Conversational VQA.` - 5 edges
+10. `DiagnosisResponse` - 3 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Radiographic Findings of CAP` --conceptually_related_to--> `ClinicaVisionModel`  [INFERRED]
-  data/medical_literature/cap_summary.txt → src/models.py
-- `Generates Grad-CAM heatmaps for a given model and input image.          Args:` --uses--> `ClinicaVisionModel`  [INFERRED]
-  C:\DATA SCIENCE\Project\Clinica-LENS\src\xai.py → src/models.py
-- `Overlays a heatmap onto an image.` --uses--> `ClinicaVisionModel`  [INFERRED]
-  C:\DATA SCIENCE\Project\Clinica-LENS\src\xai.py → src/models.py
-- `Phase 3 Upgrade: Generates a counterfactual image using OpenCV Inpainting.` --uses--> `ClinicaVisionModel`  [INFERRED]
-  C:\DATA SCIENCE\Project\Clinica-LENS\src\xai.py → src/models.py
-- `Model Architectures` --implements--> `Vision Layer`  [INFERRED]
-  src/models.py → README.md
+- `ClinicaLENSPipeline` --processed_by--> `Current X-ray Scan`  [INFERRED]
+  src\pipeline.py → temp_image.png
+- `ClinicaLENSPipeline` --sample_for--> `Bacterial Pneumonia Sample`  [INFERRED]
+  src\pipeline.py → data/sample_images/person1000_bacteria_2931.jpeg
+- `ClinicaLENSPipeline` --sample_for--> `Viral Pneumonia Sample`  [INFERRED]
+  src\pipeline.py → data/sample_images/person1009_virus_1694.jpeg
+- `ClinicaVisionModel` --calls--> `test_vision_model_forward()`  [INFERRED]
+  src\models.py → tests\test_core.py
+- `ClinicaFusionModel` --calls--> `test_fusion_model_forward()`  [INFERRED]
+  src\models.py → tests\test_core.py
+
+## Hyperedges (group relationships)
+- **Multimodal Diagnostic Stack** — models_clinicavisionmodel, models_clinicafusionmodel, rag_pipeline_medicalrag [INFERRED 0.90]
 
 ## Communities
 
 ### Community 0 - "Community 0"
-Cohesion: 0.23
-Nodes (9): ClinicaFusionModel, Combines Vision and Text embeddings to predict diagnosis, ClinicaVisionModel, Uses pre-trained ResNet/ViT for feature embeddings, ClinicaLENSPipeline, Phase 4: Conversational VQA., Unified Upgraded Pipeline for Clinica-LENS.     Orchestrates CheXNet Vision, Sa, Phase 4: Support DICOM windowing for high-bit depth images. (+1 more)
+Cohesion: 0.18
+Nodes (6): ClinicaFusionModel, ClinicaTemporalModel, Transformer-based Multimodal Fusion Layer.     Uses Cross-Attention to let Text, vision_features: (B, 1024, 7, 7) from DenseNet         text_emb: (B, 768) from, Siamese Network for Longitudinal Analysis.     Compares current vision embeddin, Phase 4: Support DICOM windowing for high-bit depth images.
 
 ### Community 1 - "Community 1"
-Cohesion: 0.15
-Nodes (15): BGE Cross-Encoder, CheXNet, Clinica-LENS, Conformal Prediction, Fusion Layer, Language Layer, Model Architectures, NLI Fact-Checking (+7 more)
+Cohesion: 0.16
+Nodes (7): Phase 4: Conversational VQA., MedicalRAG, Phase 2: NLI-based Fact Checking., Generates a verified structured report., Upgraded Retrieval-Augmented Generation pipeline for Clinica-LENS.     Uses Sap, Phase 4: Conversational Visual QA loop., Loads PDFs, splits them, and creates Hybrid Search indexes.
 
 ### Community 2 - "Community 2"
-Cohesion: 0.17
-Nodes (6): MedicalRAG, Phase 2: NLI-based Fact Checking., Generates a verified structured report., Upgraded Retrieval-Augmented Generation pipeline for Clinica-LENS.     Uses Sap, Phase 4: Conversational Visual QA loop., Loads PDFs, splits them, and creates Hybrid Search indexes.
+Cohesion: 0.2
+Nodes (7): load_pipeline(), Bacterial Pneumonia Sample, Viral Pneumonia Sample, ClinicaLENSPipeline, Unified Upgraded Pipeline for Clinica-LENS.     Orchestrates CheXNet Vision, Sa, Runs the multimodal prediction pipeline with Temporal analysis, Counterfactuals,, Current X-ray Scan
 
 ### Community 3 - "Community 3"
 Cohesion: 0.24
-Nodes (6): DiagnosisResponse, health(), predict(), BaseModel, Initializes a local LLM and the RAG chain., Loads existing FAISS and reconstructs BM25 index from stored docs.
+Nodes (8): ClinicaVisionModel, Encoder for Medical Images (X-rays) using CheXNet architecture (DenseNet121)., generate_counterfactual(), get_grad_cam(), overlay_heatmap(), Overlays a heatmap onto an image., Phase 3 Upgrade: Generates a counterfactual image using OpenCV Inpainting., Generates Grad-CAM heatmaps for a given model and input image.          Args:
 
 ### Community 4 - "Community 4"
-Cohesion: 0.28
-Nodes (7): Streamlit Dashboard, generate_counterfactual(), get_grad_cam(), overlay_heatmap(), Overlays a heatmap onto an image., Phase 3 Upgrade: Generates a counterfactual image using OpenCV Inpainting., Generates Grad-CAM heatmaps for a given model and input image.          Args:
+Cohesion: 0.22
+Nodes (5): DiagnosisResponse, predict(), BaseModel, Initializes a local LLM and the RAG chain., Loads existing FAISS and reconstructs BM25 index from stored docs.
 
 ### Community 5 - "Community 5"
-Cohesion: 0.48
+Cohesion: 0.33
 Nodes (5): test_fusion_model_forward(), test_pipeline_initialization(), test_rag_initialization(), test_temporal_model_forward(), test_vision_model_forward()
 
 ### Community 6 - "Community 6"
-Cohesion: 0.4
-Nodes (5): Clinical Inpainting, Explainability Layer, Grad-CAM, Rationale for Clinical Inpainting, XAI Module
-
-### Community 7 - "Community 7"
-Cohesion: 0.67
-Nodes (3): Community-Acquired Pneumonia (CAP), CURB-65 Severity Assessment, Radiographic Findings of CAP
-
-### Community 8 - "Community 8"
 Cohesion: 1.0
-Nodes (3): Agent Instructions, Project Instructions, Graphify Knowledge Graph
+Nodes (2): Agent Workflow Instructions, Project Instructions
 
-### Community 17 - "Community 17"
+### Community 9 - "Community 9"
 Cohesion: 1.0
-Nodes (1): Chest X-ray: Bacterial Pneumonia
+Nodes (1): Project Documentation
 
-### Community 18 - "Community 18"
+### Community 10 - "Community 10"
 Cohesion: 1.0
-Nodes (1): Chest X-ray: Viral Pneumonia
+Nodes (1): Project Dependencies
 
-### Community 19 - "Community 19"
+### Community 11 - "Community 11"
 Cohesion: 1.0
-Nodes (1): Dependencies
+Nodes (1): SapBERT Medical Embeddings
 
-### Community 20 - "Community 20"
+### Community 12 - "Community 12"
 Cohesion: 1.0
-Nodes (1): FastAPI Backend
+Nodes (1): BGE Cross-Encoder Re-ranker
 
-### Community 21 - "Community 21"
+### Community 13 - "Community 13"
 Cohesion: 1.0
-Nodes (1): Streamlit Dashboard
+Nodes (1): NLI Fact-Checking Guardrails
 
 ## Knowledge Gaps
-- **24 isolated node(s):** `Uses pre-trained ResNet/ViT for feature embeddings`, `Combines Vision and Text embeddings to predict diagnosis`, `Upgraded Retrieval-Augmented Generation pipeline for Clinica-LENS.     Uses Sap`, `Loads PDFs, splits them, and creates Hybrid Search indexes.`, `Loads existing FAISS and reconstructs BM25 index from stored docs.` (+19 more)
+- **21 isolated node(s):** `Encoder for Medical Images (X-rays) using CheXNet architecture (DenseNet121).`, `Transformer-based Multimodal Fusion Layer.     Uses Cross-Attention to let Text`, `vision_features: (B, 1024, 7, 7) from DenseNet         text_emb: (B, 768) from`, `Siamese Network for Longitudinal Analysis.     Compares current vision embeddin`, `Upgraded Retrieval-Augmented Generation pipeline for Clinica-LENS.     Uses Sap` (+16 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Community 17`** (1 nodes): `Chest X-ray: Bacterial Pneumonia`
+- **Thin community `Community 6`** (2 nodes): `Agent Workflow Instructions`, `Project Instructions`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 18`** (1 nodes): `Chest X-ray: Viral Pneumonia`
+- **Thin community `Community 9`** (1 nodes): `Project Documentation`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 19`** (1 nodes): `Dependencies`
+- **Thin community `Community 10`** (1 nodes): `Project Dependencies`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 20`** (1 nodes): `FastAPI Backend`
+- **Thin community `Community 11`** (1 nodes): `SapBERT Medical Embeddings`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 21`** (1 nodes): `Streamlit Dashboard`
+- **Thin community `Community 12`** (1 nodes): `BGE Cross-Encoder Re-ranker`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 13`** (1 nodes): `NLI Fact-Checking Guardrails`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `MedicalRAG` connect `Community 2` to `Community 0`, `Community 3`, `Community 5`?**
-  _High betweenness centrality (0.186) - this node is a cross-community bridge._
-- **Why does `ClinicaLENSPipeline` connect `Community 0` to `Community 2`, `Community 3`, `Community 4`, `Community 5`?**
-  _High betweenness centrality (0.140) - this node is a cross-community bridge._
-- **Why does `ClinicaVisionModel` connect `Community 0` to `Community 4`, `Community 5`, `Community 7`?**
-  _High betweenness centrality (0.120) - this node is a cross-community bridge._
+- **Why does `MedicalRAG` connect `Community 1` to `Community 0`, `Community 2`, `Community 4`, `Community 5`?**
+  _High betweenness centrality (0.339) - this node is a cross-community bridge._
+- **Why does `ClinicaLENSPipeline` connect `Community 2` to `Community 0`, `Community 1`, `Community 3`, `Community 4`, `Community 5`?**
+  _High betweenness centrality (0.297) - this node is a cross-community bridge._
+- **Why does `ClinicaVisionModel` connect `Community 3` to `Community 0`, `Community 1`, `Community 2`, `Community 5`?**
+  _High betweenness centrality (0.246) - this node is a cross-community bridge._
+- **Are the 10 inferred relationships involving `ClinicaLENSPipeline` (e.g. with `DiagnosisResponse` and `ClinicaVisionModel`) actually correct?**
+  _`ClinicaLENSPipeline` has 10 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 7 inferred relationships involving `MedicalRAG` (e.g. with `ClinicaLENSPipeline` and `Unified Upgraded Pipeline for Clinica-LENS.     Orchestrates CheXNet Vision, Sa`) actually correct?**
   _`MedicalRAG` has 7 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 5 inferred relationships involving `ClinicaLENSPipeline` (e.g. with `DiagnosisResponse` and `ClinicaVisionModel`) actually correct?**
-  _`ClinicaLENSPipeline` has 5 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 11 inferred relationships involving `ClinicaVisionModel` (e.g. with `ClinicaLENSPipeline` and `Unified Upgraded Pipeline for Clinica-LENS.     Orchestrates CheXNet Vision, Sa`) actually correct?**
-  _`ClinicaVisionModel` has 11 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 10 inferred relationships involving `ClinicaVisionModel` (e.g. with `ClinicaLENSPipeline` and `Unified Upgraded Pipeline for Clinica-LENS.     Orchestrates CheXNet Vision, Sa`) actually correct?**
+  _`ClinicaVisionModel` has 10 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 7 inferred relationships involving `ClinicaFusionModel` (e.g. with `ClinicaLENSPipeline` and `Unified Upgraded Pipeline for Clinica-LENS.     Orchestrates CheXNet Vision, Sa`) actually correct?**
   _`ClinicaFusionModel` has 7 INFERRED edges - model-reasoned connections that need verification._
