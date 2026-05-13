@@ -154,11 +154,5 @@ cython_debug/
 data/
 models/
 temp_image.png
-graphify-out/*
-!graphify-out/GRAPH_REPORT.md
-!graphify-out/graph.html
-!graphify-out/graph.json
-!graphify-out/cost.json
-!graphify-out/wiki/
-graphify-out/*.py
-graphify-out/.*
+GEMINI.md
+graphify-out/
