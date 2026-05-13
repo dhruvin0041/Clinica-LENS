@@ -1,7 +1,6 @@
 <div align="center">
-
-# 🏥 Clinica-LENS: Ultra-Enterprise Edition (Gold Standard)
-**The Unified Multimodal Clinical Diagnostic Platform for Global Excellence**
+# 🏥 Clinica-LENS
+**The Unified Multimodal Clinical Diagnostic Platform**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-EE4C2C.svg)](https://pytorch.org/)
@@ -10,9 +9,9 @@
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-Native-326CE5.svg)](https://kubernetes.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[![Hospital Rating](https://img.shields.io/badge/Clinical_Rating-100%2F100-brightgreen.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
 [![EHR Integration](https://img.shields.io/badge/EHR-FHIR_Full_Integration-blueviolet.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
 [![Regulatory Ready](https://img.shields.io/badge/Compliance-FDA_510(k)_Ready-success.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
+[![DICOM Support](https://img.shields.io/badge/Imaging-DICOM_%7C_DICOMweb-orange.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
 
 [Overview](#-overview) • [Key Pillars](#-key-pillars) • [Architecture](#-architecture) • [Getting Started](#-getting-started) • [Regulatory](#-regulatory) • [MLOps](#-mlops)
 
@@ -22,7 +21,8 @@
 
 ## 🌟 Overview
 
-**Clinica-LENS (Longitudinal Explainable Network System)** is a world-class, **100/100 rated** diagnostic platform engineered for global hospital networks. It is a full-scale clinical production system that unifies vision, text, and temporal analysis with statistical reliability and active medical infrastructure integration.
+**Clinica-LENS (Longitudinal Explainable Network System)** is a diagnostic platform engineered for hospital networks. It is a clinical production system that unifies vision, text, and temporal analysis with statistical reliability and active medical infrastructure integration.
+
 
 ---
 
