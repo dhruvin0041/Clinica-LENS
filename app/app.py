@@ -12,13 +12,51 @@ API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 st.set_page_config(page_title="Clinica-LENS | Enterprise Diagnostic Assistant", layout="wide")
 
-st.title("🏥 Clinica-LENS")
-st.markdown("### Enterprise Explainable Multimodal Diagnostic Assistant")
-st.info("Upload medical scans for asynchronous structured diagnosis, temporal analysis, and VQA.")
+# Authentication Helper
+def login(username, password):
+    try:
+        response = requests.post(f"{API_URL}/token", data={"username": username, "password": password})
+        if response.status_code == 200:
+            return response.json()
+        return None
+    except:
+        return None
 
-# Initialize chat history for VQA (Still local for now, can be moved to API)
+# Session State Initialization
+if "token" not in st.session_state:
+    st.session_state.token = None
 if "messages" not in st.session_state:
     st.session_state.messages = []
+
+# Sidebar Login
+st.sidebar.title("🔐 Access Control")
+if not st.session_state.token:
+    with st.sidebar.form("login_form"):
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        submitted = st.form_submit_button("Login")
+        if submitted:
+            token_data = login(username, password)
+            if token_data:
+                st.session_state.token = token_data["access_token"]
+                st.sidebar.success("Logged in successfully!")
+                st.rerun()
+            else:
+                st.sidebar.error("Invalid credentials.")
+else:
+    st.sidebar.success(f"Authenticated")
+    if st.sidebar.button("Logout"):
+        st.session_state.token = None
+        st.rerun()
+
+st.title("🏥 Clinica-LENS")
+st.markdown("### Enterprise Explainable Multimodal Diagnostic Assistant")
+
+if not st.session_state.token:
+    st.warning("Please login from the sidebar to access diagnostic features.")
+    st.stop()
+
+st.info("Upload medical scans for asynchronous structured diagnosis, temporal analysis, and VQA.")
 
 col1, col2 = st.columns([1, 1])
 
@@ -45,32 +83,30 @@ with col1:
     if st.button("Generate Advanced Diagnosis"):
         if uploaded_file and clinical_text:
             with st.spinner("Submitting to Enterprise Pipeline..."):
-                # Prepare multipart request
-                files = {
-                    "image": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)
-                }
+                headers = {"Authorization": f"Bearer {st.session_state.token}"}
+                files = {"image": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
                 if prior_file:
                     files["prior_image"] = (prior_file.name, prior_file.getvalue(), prior_file.type)
                 
-                data = {
-                    "clinical_notes": clinical_text
-                }
-                if window_center: data["window_center"] = window_center
-                if window_width: data["window_width"] = window_width
+                data = {"clinical_notes": clinical_text}
                 
                 try:
-                    response = requests.post(f"{API_URL}/predict", files=files, data=data)
+                    response = requests.post(f"{API_URL}/predict", files=files, data=data, headers=headers)
+                    if response.status_code == 401:
+                        st.session_state.token = None
+                        st.error("Session expired. Please login again.")
+                        st.rerun()
+                    
                     response.raise_for_status()
                     job_data = response.json()
                     job_id = job_data["job_id"]
                     
-                    # Polling
                     placeholder = st.empty()
                     status = "PENDING"
                     while status == "PENDING":
                         placeholder.text(f"Processing... Job ID: {job_id}")
                         time.sleep(2)
-                        status_resp = requests.get(f"{API_URL}/status/{job_id}")
+                        status_resp = requests.get(f"{API_URL}/status/{job_id}", headers=headers)
                         status_resp.raise_for_status()
                         status_data = status_resp.json()
                         status = status_data["status"]
@@ -93,7 +129,6 @@ with col2:
     if 'results' in st.session_state:
         results = st.session_state['results']
         
-        # 1. Prediction & Uncertainty
         col_res1, col_res2 = st.columns(2)
         with col_res1:
             pred_label = "Positive" if results['prediction'] == 1 else "Negative"
@@ -101,36 +136,30 @@ with col2:
             st.caption(f"Confidence: {results['mean_probability']*100:.1f}% ± {results['uncertainty']*100:.1f}%")
         
         with col_res2:
-            # Phase 1: Temporal Score
             prog = results['progression_score']
             prog_label = "Stable"
             if prog > 0.3: prog_label = "Progression"
             elif prog < -0.3: prog_label = "Improvement"
             st.metric("Temporal Progression", prog_label, delta=f"{prog:.2f}")
 
-        # Phase 2: Counterfactual ("What If")
         shift = results['prob_shift'] * 100
         st.markdown(f"🧠 **Counterfactual Analysis:** If the highlighted regions were normal, the probability of the diagnosis would shift by **{shift:+.1f}%**.")
 
-        # 2. XAI Visualization
         st.subheader("Spatial Attention (Grad-CAM)")
         if "heatmap_b64" in results and results["heatmap_b64"]:
             heatmap_bytes = base64.b64decode(results["heatmap_b64"])
             heatmap_img = Image.open(BytesIO(heatmap_bytes))
             st.image(heatmap_img, caption="High-Attribution Feature Regions", use_container_width=True)
         
-        # 3. Structured Report
         st.subheader("Structured Radiology Report")
         st.markdown("#### Findings")
         st.info(results['findings'])
         st.markdown("#### Impression")
         st.success(results['impression'])
         
-        # 4. Conversational VQA
         st.divider()
         st.subheader("Conversational VQA (Chat with Scan)")
         st.warning("VQA is currently under migration to Enterprise API. Please check back soon.")
-
     else:
         st.write("Dashboard will populate after analysis.")
 

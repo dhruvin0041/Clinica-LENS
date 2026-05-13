@@ -1,28 +1,59 @@
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Depends, Request
+from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from typing import List, Optional, Any
 import base64
+import time
+import logging
+from datetime import timedelta
 from src.worker import predict_task
+from src.auth import (
+    Token, User, get_current_user, authenticate_user, 
+    create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, fake_users_db, verify_password
+)
 from celery.result import AsyncResult
 
+# Configure Logging
+logging.basicConfig(
+    filename="audit.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+logger = logging.getLogger("Clinica-LENS-Audit")
+
 app = FastAPI(title="Clinica-LENS API", description="Enterprise API for Multimodal Clinical Diagnostics")
+
+# Middleware for Audit Logging
+@app.middleware("http")
+async def audit_log_middleware(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    process_time = time.time() - start_time
+    
+    # In a real system, we'd extract the user from the token in the header here
+    # For now, we log the path and status
+    logger.info(f"Method: {request.method} Path: {request.url.path} Status: {response.status_code} Duration: {process_time:.4f}s")
+    return response
 
 class JobResponse(BaseModel):
     job_id: str
     status: str
 
-class DiagnosisResponse(BaseModel):
-    prediction: int
-    mean_probability: float
-    uncertainty: float
-    prediction_set: List[int]
-    progression_score: float
-    prob_shift: float
-    findings: str
-    impression: str
-    rag_status: str
-    rag_sources: List[str]
-    heatmap_b64: Optional[str] = None
+@app.post("/token", response_model=Token)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = authenticate_user(form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=401,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": form_data.username}, expires_delta=access_token_expires
+    )
+    logger.info(f"User {form_data.username} logged in successfully.")
+    return {"access_token": access_token, "token_type": "bearer"}
 
 @app.post("/predict", response_model=JobResponse)
 async def predict(
@@ -30,9 +61,11 @@ async def predict(
     clinical_notes: str = Form(...),
     prior_image: Optional[UploadFile] = File(None),
     window_center: Optional[int] = Form(None),
-    window_width: Optional[int] = Form(None)
+    window_width: Optional[int] = Form(None),
+    current_user: User = Depends(get_current_user)
 ):
-    # Convert files to base64 for Celery transport
+    logger.info(f"User {current_user.username} submitted a prediction job.")
+    
     image_content = await image.read()
     image_b64 = base64.b64encode(image_content).decode()
     
@@ -41,7 +74,6 @@ async def predict(
         prior_content = await prior_image.read()
         prior_b64 = base64.b64encode(prior_content).decode()
     
-    # Dispatch task
     task = predict_task.delay(
         image_b64, 
         clinical_notes, 
@@ -53,7 +85,7 @@ async def predict(
     return {"job_id": task.id, "status": "PENDING"}
 
 @app.get("/status/{job_id}")
-async def get_status(job_id: str):
+async def get_status(job_id: str, current_user: User = Depends(get_current_user)):
     task_result = AsyncResult(job_id)
     if task_result.status == 'PENDING':
         return {"job_id": job_id, "status": "PENDING"}
