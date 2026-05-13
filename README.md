@@ -1,6 +1,6 @@
 <div align="center">
 # 🏥 Clinica-LENS
-**The Unified Multimodal Clinical Diagnostic Platform**
+**Longitudinal Explainable Network System for Multi-modal Clinical Diagnostics**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-EE4C2C.svg)](https://pytorch.org/)
@@ -13,7 +13,7 @@
 [![Regulatory Ready](https://img.shields.io/badge/Compliance-FDA_510(k)_Ready-success.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
 [![DICOM Support](https://img.shields.io/badge/Imaging-DICOM_%7C_DICOMweb-orange.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
 
-[Overview](#-overview) • [Key Pillars](#-key-pillars) • [Architecture](#-architecture) • [Getting Started](#-getting-started) • [Regulatory](#-regulatory) • [MLOps](#-mlops)
+[Overview](#-overview) • [Core Capabilities](#-core-capabilities) • [Architecture](#-architecture) • [Medical Pipeline](#-medical-pipeline) • [Infrastructure](#-infrastructure) • [Regulatory](#-regulatory)
 
 </div>
 
@@ -21,70 +21,88 @@
 
 ## 🌟 Overview
 
-**Clinica-LENS (Longitudinal Explainable Network System)** is a diagnostic platform engineered for hospital networks. It is a clinical production system that unifies vision, text, and temporal analysis with statistical reliability and active medical infrastructure integration.
-
+**Clinica-LENS** is an enterprise-grade diagnostic platform designed for complex hospital environments. It integrates vision, text, and longitudinal patient data to provide explainable, high-fidelity clinical insights. Built as a **Software as a Medical Device (SaMD)**, it unifies state-of-the-art AI with active medical infrastructure (PACS, FHIR) to support professional radiological workflows.
 
 ---
 
-## 💎 Key Pillars
+## 💎 Core Capabilities
+
+### 🧠 Advanced Multi-modal AI
+- **Vision Encoding:** DenseNet121-based **CheXNet** backbone for high-resolution medical image feature extraction.
+- **Text Understanding:** **SapBERT** integration for processing dense clinical notes and medical terminology.
+- **Transformer Fusion:** Cross-attention mechanisms that enable deep interaction between visual findings and patient history.
+- **Temporal Analysis:** Siamese-based longitudinal scoring to track disease progression over time (Current vs. Prior studies).
+
+### 🔍 Deep Explainability (XAI)
+- **Spatial Localization:** Grad-CAM heatmaps for high-attribution feature region identification.
+- **Counterfactual Reasoning:** Inpainting-based "What-If" analysis to quantify the diagnostic impact of specific visual regions.
+- **Clinical Calibration:** **Platt Scaling** and **Conformal Prediction** ensuring confidence scores are statistically aligned with real-world clinical probabilities.
 
 ### 🔗 Active Medical Interoperability
-*   **Full FHIR Integration:** Active write-back of AI-generated `DiagnosticReport` resources to hospital EHRs.
-*   **Active PACS SCU:** Integrated DICOM Client capable of **C-FIND** and **C-MOVE** to automatically retrieve historical patient scans.
-*   **Modern DICOMweb:** Full WADO-RS and QIDO-RS stubs for cloud-native medical imaging workflows.
-
-### 🛡️ Regulatory & Clinical Safety
-*   **Regulatory Ready:** Comprehensive framework for **FDA 510(k)** and **CE-MDR** submission, including CER and Risk Management plans.
-*   **Clinical Calibration:** Advanced **Platt Scaling** layer ensuring AI confidence scores are statistically aligned with real-world clinical probabilities.
-*   **Multi-Tenant Isolation:** Institutional-level data and log separation for global hospital chains.
-
-### ⚡ Distributed High-Scale Infrastructure
-*   **Async Task Queue:** Decoupled inference processing using Celery & Redis.
-*   **Kubernetes & Triton:** Production manifests for global scaling and optimized serving via NVIDIA Triton.
-
-### 🧠 Deep Explainability (XAI)
-*   **Reasoning-as-a-Service:** Combination of Grad-CAM spatial heatmaps, Counterfactual "What-If" analysis, and Longitudinal progression scoring.
+- **PACS Client (SCU):** Integrated DICOM engine supporting **C-FIND** and **C-MOVE** for automated retrieval of historical patient studies.
+- **DICOMweb Support:** Native WADO-RS and QIDO-RS compatibility for cloud-native imaging.
+- **FHIR Synchronization:** Active write-back of AI-generated `DiagnosticReport` resources to hospital EHRs.
 
 ---
 
 ## 🏗 Architecture
 
-Clinica-LENS follows a "Clinical Mesh" architecture:
-- **Frontend:** Streamlit-based High-Fidelity Dashboard.
-- **API Gateway:** Multi-tenant FastAPI with OAuth2 and Prometheus monitoring.
-- **Inference Workers:** Distributed Celery nodes optimized for multimodal processing.
-- **Networking Tier:** Active DICOM SCU (Client) and SCP (Listener) for PACS integration.
-- **Regulatory Tier:** Integrated documentation and compliance monitoring.
+Clinica-LENS follows a **Distributed Clinical Mesh** architecture, ensuring high availability and multi-tenant isolation.
+
+```mermaid
+graph TD
+    A[Hospital Client/UI] -->|OAuth2| B[API Gateway: FastAPI]
+    B -->|Task Queue| C[Redis]
+    C -->|Distributed Tasks| D[Inference Workers: Celery]
+    D -->|Query/Retrieve| E[Hospital PACS]
+    D -->|Write-back| F[EHR: HL7 FHIR]
+    D -->|Vision| G[NVIDIA Triton: CheXNet]
+    D -->|Text| H[Vector DB: RAG Engine]
+    B -->|Telemetry| I[Prometheus/Grafana]
+```
+
+---
+
+## 🔬 Medical Pipeline
+
+### 1. Pre-processing & Windowing
+The pipeline supports high-bit depth DICOM images with dynamic windowing (Window Center/Width) to preserve clinical detail in soft tissue or lung parenchyma.
+
+### 2. Inference & Uncertainty
+Uses **MC Dropout** for epistemic uncertainty estimation, providing clinicians with a variance score along with the primary diagnosis.
+
+### 3. Verification & RAG
+Integrates a **Medical RAG (Retrieval-Augmented Generation)** system to verify findings against established medical literature, generating structured radiology reports (Findings & Impression).
 
 ---
 
 ## 📋 Regulatory Documentation
 
-The system includes pre-configured compliance templates in the `regulatory/` directory:
-- **Clinical Evaluation Report (CER):** Mapping AI performance to clinical standards.
-- **Risk Management Plan:** ISO 14971 compliant hazard analysis and mitigation tracking.
-- **Technical File:** Architectural documentation for certification submission.
+The platform includes a comprehensive framework for global compliance:
+- **CER (Clinical Evaluation Report):** Automated mapping of AI performance to clinical standards.
+- **Risk Management (ISO 14971):** Integrated hazard analysis and mitigation tracking.
+- **Technical File:** Full architectural and safety documentation for **FDA 510(k)** and **CE-MDR** submissions.
 
 ---
 
 ## 🚦 Getting Started
 
-### Launch Distributed Stack
+### Launch the Distributed Stack
 ```bash
 docker-compose up --build
 ```
 
-### Access Ports
-*   **UI Dashboard:** `http://localhost:8501`
-*   **Enterprise API:** `http://localhost:8000`
-*   **PACS Client/Listener:** `localhost:11112`
-*   **Metrics:** `http://localhost:8000/metrics`
+### Infrastructure Components
+*   **UI Dashboard:** `http://localhost:8501` (Streamlit High-Fidelity Dashboard)
+*   **Enterprise API:** `http://localhost:8000` (FastAPI with OpenAPI/Swagger docs)
+*   **PACS Listener:** `localhost:11112` (DICOM SCP)
+*   **Monitoring:** `http://localhost:8000/metrics` (Prometheus Metrics)
 
 ---
 
 <div align="center">
 
-**The Future of Clinical AI, Today.**  
+**Advancing Clinical Diagnostics through Explainable Intelligence.**  
 Developed by [dhruvin0041](https://github.com/dhruvin0041)
 
 </div>
