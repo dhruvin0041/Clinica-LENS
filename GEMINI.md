@@ -1,7 +1,14 @@
 # Project Instructions: Clinica-LENS
 
 ## Foundational Mandates
-- **AGENT.md:** Always read and adhere to the instructions in `AGENT.md`. It contains critical workflows for this repository.
-- **Graphify:** Before answering architecture or codebase questions, analyze the knowledge graph in `graphify-out/`, specifically `graphify-out/GRAPH_REPORT.md`. Use the graphify tools to explore dependencies.
-- **Commits:** Every modification to the codebase MUST be followed by a git commit with a clear, concise message, as per the mandate in `AGENT.md`.
-- **Validation:** Always verify changes and rebuild/update the graph after modifications to keep it synchronized with the code.
+
+### Graphify & Architecture
+- This project uses a **graphify** knowledge graph located at `graphify-out/`.
+- **Pre-Analysis:** Before answering architecture or codebase questions, analyze `graphify-out/GRAPH_REPORT.md` to understand "God Nodes" (core abstractions) and community structure.
+- **Navigation:** If `graphify-out/wiki/index.md` exists, navigate it for context instead of scanning raw files.
+- **Relationship Discovery:** For cross-module "how does X relate to Y" questions, prefer to use the graphify Python module to query `graph.json` or use graphify tools to explore instead of scanning files.
+
+### Development Workflow
+- **Mandatory Commits:** Every modification to the codebase MUST be followed by a git commit with a clear, concise message.
+- **Validation & Sync:** Always verify changes and rebuild/update the graph after modifications (using `graphify --update`) to keep it synchronized with the code.
+- **Testing:** Ensure all tests in `tests/` pass before concluding a task.
