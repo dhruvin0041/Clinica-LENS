@@ -10,7 +10,6 @@
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-Native-326CE5.svg)](https://kubernetes.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[![Hospital Rating](https://img.shields.io/badge/Clinical_Rating-100%2F100-brightgreen.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
 [![EHR Integration](https://img.shields.io/badge/EHR-FHIR_Write--Back-blueviolet.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
 [![DICOM Support](https://img.shields.io/badge/Imaging-DICOM_%7C_DICOMweb-orange.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
 
