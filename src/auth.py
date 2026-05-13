@@ -26,6 +26,7 @@ class User(BaseModel):
     username: str
     full_name: Optional[str] = None
     role: str # radiologist, admin, etc.
+    tenant_id: str # Multi-tenant isolation
 
 # In-memory user database for demo (Replace with real DB in prod)
 fake_users_db = {
@@ -34,6 +35,14 @@ fake_users_db = {
         "full_name": "Dr. Smith",
         "hashed_password": pwd_context.hash("clinica-lens-2026"),
         "role": "radiologist",
+        "tenant_id": "hospital_alpha"
+    },
+    "radiologist2": {
+        "username": "radiologist2",
+        "full_name": "Dr. Jones",
+        "hashed_password": pwd_context.hash("clinica-lens-2026"),
+        "role": "radiologist",
+        "tenant_id": "clinic_beta"
     }
 }
 
@@ -53,6 +62,10 @@ def authenticate_user(username: str, password: str):
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
+    user = fake_users_db.get(to_encode.get("sub"))
+    if user:
+        to_encode.update({"tenant_id": user["tenant_id"]})
+    
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:

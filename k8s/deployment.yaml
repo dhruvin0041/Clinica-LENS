@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clinica-lens-api
+  labels:
+    app: clinica-lens
+    component: api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: clinica-lens
+      component: api
+  template:
+    metadata:
+      labels:
+        app: clinica-lens
+        component: api
+    spec:
+      containers:
+      - name: api
+        image: dhruvin0041/clinica-lens-api:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: CELERY_BROKER_URL
+          value: "redis://redis-service:6379/0"
+        - name: CELERY_RESULT_BACKEND
+          value: "redis://redis-service:6379/0"
+        resources:
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clinica-lens-api-service
+spec:
+  selector:
+    app: clinica-lens
+    component: api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: LoadBalancer
