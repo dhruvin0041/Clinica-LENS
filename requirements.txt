@@ -16,3 +16,11 @@ sentence-transformers
 pypdf
 pydicom
 rank_bm25
+celery
+redis
+pynetdicom
+prometheus_client
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
+requests

@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.git/
+.venv/
+env/
+venv/
+.pytest_cache/
+graphify-out/
+data/
+models/

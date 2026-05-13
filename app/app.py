@@ -1,31 +1,22 @@
 import streamlit as st
-import torch
 import os
 import sys
-
-# Add the project root to sys.path to resolve 'src' imports
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
+import time
+import requests
+import base64
+from io import BytesIO
 from PIL import Image
-import numpy as np
-import matplotlib.pyplot as plt
-from src.pipeline import ClinicaLENSPipeline
-from src.xai import overlay_heatmap
 
-st.set_page_config(page_title="Clinica-LENS | Multimodal Diagnostic Assistant", layout="wide")
+# Configuration
+API_URL = os.getenv("API_URL", "http://localhost:8000")
+
+st.set_page_config(page_title="Clinica-LENS | Enterprise Diagnostic Assistant", layout="wide")
 
 st.title("🏥 Clinica-LENS")
-st.markdown("### Next-Gen Explainable Multimodal Diagnostic Assistant")
-st.info("Upload medical scans (Current & Optional Prior) for structured diagnosis, temporal analysis, and VQA.")
+st.markdown("### Enterprise Explainable Multimodal Diagnostic Assistant")
+st.info("Upload medical scans for asynchronous structured diagnosis, temporal analysis, and VQA.")
 
-@st.cache_resource
-def load_pipeline():
-    pipeline = ClinicaLENSPipeline()
-    return pipeline
-
-pipeline = load_pipeline()
-
-# Initialize chat history for VQA
+# Initialize chat history for VQA (Still local for now, can be moved to API)
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -42,17 +33,7 @@ with col1:
         window_width = None
         
         if uploaded_file:
-            file_ext = os.path.splitext(uploaded_file.name)[1].lower()
-            if file_ext == '.dcm':
-                st.info("DICOM windowing controls active.")
-                window_center = st.slider("Window Center (Level)", min_value=-1000, max_value=2000, value=40, key="wc")
-                window_width = st.slider("Window Width", min_value=1, max_value=4000, value=400, key="ww")
-            
-            temp_preview_path = f"temp_preview{file_ext}"
-            with open(temp_preview_path, "wb") as f:
-                f.write(uploaded_file.getbuffer())
-            preview_img = pipeline.load_and_window_image(temp_preview_path, window_center, window_width)
-            st.image(preview_img, caption="Current Scan Preview", use_container_width=True)
+            st.image(uploaded_file, caption="Current Scan Preview", use_container_width=True)
 
     with tab_prior:
         prior_file = st.file_uploader("Upload Prior X-ray (Optional)", type=["png", "jpg", "jpeg", "dcm"], key="prior_scan")
@@ -63,33 +44,47 @@ with col1:
 
     if st.button("Generate Advanced Diagnosis"):
         if uploaded_file and clinical_text:
-            with st.spinner("Executing Next-Gen Pipeline (Temporal, MC Dropout, Counterfactuals)..."):
-                # Save current
-                file_ext = os.path.splitext(uploaded_file.name)[1].lower()
-                temp_path = f"temp_image{file_ext}"
-                with open(temp_path, "wb") as f:
-                    f.write(uploaded_file.getbuffer())
-                
-                # Save prior if exists
-                prior_path = None
+            with st.spinner("Submitting to Enterprise Pipeline..."):
+                # Prepare multipart request
+                files = {
+                    "image": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)
+                }
                 if prior_file:
-                    prior_ext = os.path.splitext(prior_file.name)[1].lower()
-                    prior_path = f"temp_prior{prior_ext}"
-                    with open(prior_path, "wb") as f:
-                        f.write(prior_file.getbuffer())
+                    files["prior_image"] = (prior_file.name, prior_file.getvalue(), prior_file.type)
                 
-                pipeline.rag_engine.load_vector_db()
-                if not pipeline.rag_engine.qa_chain:
-                    pipeline.rag_engine.setup_llm()
+                data = {
+                    "clinical_notes": clinical_text
+                }
+                if window_center: data["window_center"] = window_center
+                if window_width: data["window_width"] = window_width
                 
-                # Execute Prediction
-                results = pipeline.predict(temp_path, clinical_text, prior_image_path=prior_path, 
-                                           window_center=window_center, window_width=window_width, mc_samples=15)
-                
-                st.session_state['results'] = results
-                st.session_state['temp_path'] = temp_path
-                # Clear messages when a new diagnosis is generated
-                st.session_state.messages = []
+                try:
+                    response = requests.post(f"{API_URL}/predict", files=files, data=data)
+                    response.raise_for_status()
+                    job_data = response.json()
+                    job_id = job_data["job_id"]
+                    
+                    # Polling
+                    placeholder = st.empty()
+                    status = "PENDING"
+                    while status == "PENDING":
+                        placeholder.text(f"Processing... Job ID: {job_id}")
+                        time.sleep(2)
+                        status_resp = requests.get(f"{API_URL}/status/{job_id}")
+                        status_resp.raise_for_status()
+                        status_data = status_resp.json()
+                        status = status_data["status"]
+                        
+                        if status == "SUCCESS":
+                            st.session_state['results'] = status_data["result"]
+                            placeholder.success("Analysis Complete!")
+                            st.rerun()
+                        elif status == "FAILURE":
+                            placeholder.error(f"Job Failed: {status_data.get('error', 'Unknown error')}")
+                            break
+                            
+                except Exception as e:
+                    st.error(f"API Error: {str(e)}")
         else:
             st.error("Current scan and clinical notes are required.")
 
@@ -119,46 +114,27 @@ with col2:
 
         # 2. XAI Visualization
         st.subheader("Spatial Attention (Grad-CAM)")
-        preview_img = pipeline.load_and_window_image(st.session_state['temp_path'], window_center, window_width)
-        preview_img.save("temp_overlay_bg.png")
-        combined_img = overlay_heatmap("temp_overlay_bg.png", results['heatmap'])
-        st.image(combined_img, caption="High-Attribution Feature Regions", use_container_width=True)
+        if "heatmap_b64" in results and results["heatmap_b64"]:
+            heatmap_bytes = base64.b64decode(results["heatmap_b64"])
+            heatmap_img = Image.open(BytesIO(heatmap_bytes))
+            st.image(heatmap_img, caption="High-Attribution Feature Regions", use_container_width=True)
         
-        # 3. Structured Report (Phase 3)
+        # 3. Structured Report
         st.subheader("Structured Radiology Report")
         st.markdown("#### Findings")
         st.info(results['findings'])
         st.markdown("#### Impression")
         st.success(results['impression'])
         
-        # 4. Conversational VQA (Phase 4)
+        # 4. Conversational VQA
         st.divider()
         st.subheader("Conversational VQA (Chat with Scan)")
-        
-        for message in st.session_state.messages:
-            with st.chat_message(message["role"]):
-                st.markdown(message["content"])
-
-        if prompt := st.chat_input("Ask about the heart size, costophrenic angles, or the report..."):
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            with st.chat_message("user"):
-                st.markdown(prompt)
-            
-            with st.chat_message("assistant"):
-                with st.spinner("Consulting literature and image context..."):
-                    response = pipeline.chat(prompt)
-                    st.markdown(response)
-            st.session_state.messages.append({"role": "assistant", "content": response})
+        st.warning("VQA is currently under migration to Enterprise API. Please check back soon.")
 
     else:
         st.write("Dashboard will populate after analysis.")
 
 st.sidebar.header("System Admin")
-if st.sidebar.button("Re-Ingest Literature"):
-    with st.spinner("Updating indexes..."):
-        pipeline.rag_engine.ingest_documents()
-        st.sidebar.success("Indexes Updated.")
-
 if st.sidebar.button("Reset Session"):
     for key in list(st.session_state.keys()):
         del st.session_state[key]

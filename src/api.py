@@ -1,27 +1,30 @@
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from pydantic import BaseModel
-from typing import List, Optional
-import os
-import shutil
-from src.pipeline import ClinicaLENSPipeline
+from typing import List, Optional, Any
+import base64
+from src.worker import predict_task
+from celery.result import AsyncResult
 
-app = FastAPI(title="Clinica-LENS API", description="Production API for Multimodal Clinical Diagnostics")
+app = FastAPI(title="Clinica-LENS API", description="Enterprise API for Multimodal Clinical Diagnostics")
 
-# Initialize pipeline (lazy load models in production)
-pipeline = ClinicaLENSPipeline()
+class JobResponse(BaseModel):
+    job_id: str
+    status: str
 
 class DiagnosisResponse(BaseModel):
     prediction: int
     mean_probability: float
     uncertainty: float
+    prediction_set: List[int]
     progression_score: float
     prob_shift: float
     findings: str
     impression: str
     rag_status: str
     rag_sources: List[str]
+    heatmap_b64: Optional[str] = None
 
-@app.post("/predict", response_model=DiagnosisResponse)
+@app.post("/predict", response_model=JobResponse)
 async def predict(
     image: UploadFile = File(...),
     clinical_notes: str = Form(...),
@@ -29,44 +32,40 @@ async def predict(
     window_center: Optional[int] = Form(None),
     window_width: Optional[int] = Form(None)
 ):
-    # Save uploaded files temporarily
-    image_path = f"temp_{image.filename}"
-    with open(image_path, "wb") as buffer:
-        shutil.copyfileobj(image.file, buffer)
+    # Convert files to base64 for Celery transport
+    image_content = await image.read()
+    image_b64 = base64.b64encode(image_content).decode()
     
-    prior_path = None
+    prior_b64 = None
     if prior_image:
-        prior_path = f"temp_prior_{prior_image.filename}"
-        with open(prior_path, "wb") as buffer:
-            shutil.copyfileobj(prior_image.file, buffer)
+        prior_content = await prior_image.read()
+        prior_b64 = base64.b64encode(prior_content).decode()
     
-    # Load RAG if not ready
-    pipeline.rag_engine.load_vector_db()
-    if not pipeline.rag_engine.qa_chain:
-        pipeline.rag_engine.setup_llm()
-        
-    results = pipeline.predict(
-        image_path, 
+    # Dispatch task
+    task = predict_task.delay(
+        image_b64, 
         clinical_notes, 
-        prior_image_path=prior_path,
+        prior_image_data_b64=prior_b64,
         window_center=window_center,
         window_width=window_width
     )
     
-    # Clean up (optional in prod, use tempfile)
-    os.remove(image_path)
-    if prior_path:
-        os.remove(prior_path)
-        
-    # Heatmap is excluded from Pydantic model for now as it's a tensor/array
-    # In a real API, we'd return a URL or base64
-    results.pop("heatmap", None)
-    
-    return results
+    return {"job_id": task.id, "status": "PENDING"}
+
+@app.get("/status/{job_id}")
+async def get_status(job_id: str):
+    task_result = AsyncResult(job_id)
+    if task_result.status == 'PENDING':
+        return {"job_id": job_id, "status": "PENDING"}
+    elif task_result.status == 'SUCCESS':
+        return {"job_id": job_id, "status": "SUCCESS", "result": task_result.result}
+    elif task_result.status == 'FAILURE':
+        return {"job_id": job_id, "status": "FAILURE", "error": str(task_result.info)}
+    return {"job_id": job_id, "status": task_result.status}
 
 @app.get("/health")
 def health():
-    return {"status": "healthy", "device": str(pipeline.device)}
+    return {"status": "healthy"}
 
 if __name__ == "__main__":
     import uvicorn
