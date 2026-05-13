@@ -45,3 +45,13 @@ services:
       - api
     volumes:
       - .:/app
+
+  dicom-pacs:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    command: python src/dicom_listener.py
+    ports:
+      - "11112:11112"
+    volumes:
+      - .:/app

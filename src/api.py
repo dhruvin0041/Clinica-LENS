@@ -99,6 +99,25 @@ async def get_status(job_id: str, current_user: User = Depends(get_current_user)
 def health():
     return {"status": "healthy"}
 
+# Phase 3: Mock FHIR/EHR Integration Endpoints
+@app.get("/fhir/Patient/{patient_id}/Observation")
+async def get_patient_observations(patient_id: str, current_user: User = Depends(get_current_user)):
+    """Mock endpoint to simulate pulling clinical data from an EHR."""
+    logger.info(f"User {current_user.username} requested FHIR observations for patient {patient_id}")
+    return {
+        "resourceType": "Bundle",
+        "entry": [
+            {
+                "resource": {
+                    "resourceType": "Observation",
+                    "status": "final",
+                    "code": {"text": "Clinical Notes"},
+                    "valueString": "Persistent cough, fever for 3 days, decreased breath sounds in right lower lobe."
+                }
+            }
+        ]
+    }
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
