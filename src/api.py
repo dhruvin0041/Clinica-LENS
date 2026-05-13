@@ -23,17 +23,43 @@ logger = logging.getLogger("Clinica-LENS-Audit")
 
 app = FastAPI(title="Clinica-LENS API", description="Enterprise API for Multimodal Clinical Diagnostics")
 
-# Middleware for Audit Logging
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+from fastapi.responses import Response
+
+# Metrics
+REQUEST_COUNT = Counter("api_requests_total", "Total count of requests", ["method", "endpoint", "status"])
+REQUEST_LATENCY = Histogram("api_request_latency_seconds", "Request latency", ["method", "endpoint"])
+
+# Middleware for Audit Logging & Metrics
 @app.middleware("http")
 async def audit_log_middleware(request: Request, call_next):
     start_time = time.time()
     response = await call_next(request)
     process_time = time.time() - start_time
     
-    # In a real system, we'd extract the user from the token in the header here
-    # For now, we log the path and status
+    # Update Metrics
+    REQUEST_COUNT.labels(method=request.method, endpoint=request.url.path, status=response.status_code).inc()
+    REQUEST_LATENCY.labels(method=request.method, endpoint=request.url.path).observe(process_time)
+    
     logger.info(f"Method: {request.method} Path: {request.url.path} Status: {response.status_code} Duration: {process_time:.4f}s")
     return response
+
+@app.get("/metrics")
+def metrics():
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
+class FeedbackRequest(BaseModel):
+    job_id: str
+    rating: int # 1 to 5
+    comments: Optional[str] = None
+    radiologist_override: Optional[str] = None
+
+@app.post("/feedback")
+async def submit_feedback(feedback: FeedbackRequest, current_user: User = Depends(get_current_user)):
+    """Human-in-the-Loop (HITL) feedback endpoint."""
+    logger.info(f"User {current_user.username} submitted feedback for job {feedback.job_id}. Rating: {feedback.rating}")
+    # In a real system, we'd save this to a database for model fine-tuning
+    return {"status": "success", "message": "Feedback recorded for future model improvement."}
 
 class JobResponse(BaseModel):
     job_id: str

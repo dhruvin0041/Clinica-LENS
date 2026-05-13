@@ -100,6 +100,7 @@ with col1:
                     response.raise_for_status()
                     job_data = response.json()
                     job_id = job_data["job_id"]
+                    st.session_state["last_job_id"] = job_id
                     
                     placeholder = st.empty()
                     status = "PENDING"
@@ -160,6 +161,30 @@ with col2:
         st.divider()
         st.subheader("Conversational VQA (Chat with Scan)")
         st.warning("VQA is currently under migration to Enterprise API. Please check back soon.")
+
+        # Phase 4: HITL Feedback
+        st.divider()
+        st.subheader("🏥 Clinical Feedback (HITL)")
+        with st.form("feedback_form"):
+            rating = st.slider("Rate AI Diagnostic Accuracy (1-5)", 1, 5, 5)
+            override = st.text_area("Radiologist Override / Corrected Findings (if any)", placeholder="Enter corrections here...")
+            comments = st.text_input("General Comments")
+            submit_feedback = st.form_submit_button("Submit Clinical Feedback")
+            
+            if submit_feedback:
+                try:
+                    headers = {"Authorization": f"Bearer {st.session_state.token}"}
+                    fb_data = {
+                        "job_id": st.session_state.get("last_job_id", "unknown"),
+                        "rating": rating,
+                        "comments": comments,
+                        "radiologist_override": override
+                    }
+                    fb_resp = requests.post(f"{API_URL}/feedback", json=fb_data, headers=headers)
+                    fb_resp.raise_for_status()
+                    st.success("Thank you! Your feedback has been recorded for model optimization.")
+                except Exception as e:
+                    st.error(f"Feedback Submission Error: {str(e)}")
     else:
         st.write("Dashboard will populate after analysis.")
 
