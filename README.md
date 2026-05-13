@@ -1,6 +1,7 @@
 <div align="center">
-# 🏥 Clinica-LENS
-**Longitudinal Explainable Network System for Multi-modal Clinical Diagnostics**
+
+# Clinica-LENS
+### Longitudinal Explainable Network System for Multi-modal Clinical Diagnostics
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch 2.0+](https://img.shields.io/badge/PyTorch-2.0+-EE4C2C.svg)](https://pytorch.org/)
@@ -9,9 +10,13 @@
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-Native-326CE5.svg)](https://kubernetes.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<br>
+
 [![EHR Integration](https://img.shields.io/badge/EHR-FHIR_Full_Integration-blueviolet.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
 [![Regulatory Ready](https://img.shields.io/badge/Compliance-FDA_510(k)_Ready-success.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
 [![DICOM Support](https://img.shields.io/badge/Imaging-DICOM_%7C_DICOMweb-orange.svg?style=for-the-badge)](https://github.com/dhruvin0041/Clinica-LENS)
+
+<br>
 
 [Overview](#-overview) • [Core Capabilities](#-core-capabilities) • [Architecture](#-architecture) • [Medical Pipeline](#-medical-pipeline) • [Infrastructure](#-infrastructure) • [Regulatory](#-regulatory)
 
