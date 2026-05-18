@@ -25,22 +25,8 @@ def get_pipeline():
     return pipeline
 
 @celery_app.task(name="tasks.predict_task")
-def predict_task(image_data_b64, clinical_notes, prior_image_data_b64=None, window_center=None, window_width=None):
+def predict_task(image_path, clinical_notes, prior_image_path=None, window_center=None, window_width=None):
     pipe = get_pipeline()
-    
-    # Decode images from base64 to temporary files
-    def save_b64_to_temp(b64_str, prefix):
-        if not b64_str:
-            return None
-        # In a real system, we'd use a more robust temp file management
-        temp_path = f"/tmp/{prefix}_{os.getpid()}.png"
-        header, encoded = b64_str.split(",", 1) if "," in b64_str else (None, b64_str)
-        with open(temp_path, "wb") as f:
-            f.write(base64.b64decode(encoded))
-        return temp_path
-
-    image_path = save_b64_to_temp(image_data_b64, "current")
-    prior_path = save_b64_to_temp(prior_image_data_b64, "prior")
     
     try:
         results = pipe.predict(

@@ -95,7 +95,12 @@ def generate_counterfactual(model, input_tensor, heatmap, threshold=0.6):
     
     # 4. Convert back to tensor
     inpainted_tensor = torch.from_numpy(inpainted).permute(2, 0, 1).float() / 255.0
-    inpainted_tensor = (inpainted_tensor - mean.squeeze().cpu()) / std.squeeze().cpu()
+    
+    # Ensure mean and std are (3, 1, 1) for correct broadcasting against (3, H, W)
+    mean_3d = mean.squeeze(0).cpu() # (3, 1, 1)
+    std_3d = std.squeeze(0).cpu()   # (3, 1, 1)
+    
+    inpainted_tensor = (inpainted_tensor - mean_3d) / std_3d
     
     return inpainted_tensor.unsqueeze(0).to(input_tensor.device)
 

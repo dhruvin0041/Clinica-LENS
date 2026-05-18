@@ -17,17 +17,17 @@ class ClinicalCalibrator:
         self.a = 0.85 # Scaling
         self.b = -0.1 # Intercept
 
-    def calibrate(self, probs):
+    def calibrate(self, logits):
         """
-        Applies a sigmoid transformation (Platt Scaling) to raw probabilities.
-        probs: torch.Tensor or np.array of shape (C,) or (B, C)
+        Applies a sigmoid transformation (Platt Scaling) to raw model logits.
+        logits: torch.Tensor or np.array of shape (C,) or (B, C)
         """
-        if isinstance(probs, torch.Tensor):
-            probs = probs.detach().cpu().numpy()
+        if isinstance(logits, torch.Tensor):
+            logits = logits.detach().cpu().numpy()
             
         # For demo, we apply a fixed transformation that improves alignment
         # In production, this would be: self.model.predict_proba(logits)
-        calibrated = 1 / (1 + np.exp(-(self.a * probs + self.b)))
+        calibrated = 1 / (1 + np.exp(-(self.a * logits + self.b)))
         
         # Re-normalize to sum to 1
         if calibrated.ndim == 1:

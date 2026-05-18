@@ -105,18 +105,23 @@ async def predict(
 ):
     logger.info(f"Tenant: {current_user.tenant_id} | User {current_user.username} submitted a prediction job.")
     
-    image_content = await image.read()
-    image_b64 = base64.b64encode(image_content).decode()
+    import shutil
+    from tempfile import NamedTemporaryFile
     
-    prior_b64 = None
+    with NamedTemporaryFile(delete=False, suffix=".dcm") as temp_img:
+        shutil.copyfileobj(image.file, temp_img)
+        image_path = temp_img.name
+        
+    prior_path = None
     if prior_image:
-        prior_content = await prior_image.read()
-        prior_b64 = base64.b64encode(prior_content).decode()
+        with NamedTemporaryFile(delete=False, suffix=".dcm") as temp_prior:
+            shutil.copyfileobj(prior_image.file, temp_prior)
+            prior_path = temp_prior.name
     
     task = predict_task.delay(
-        image_b64, 
-        clinical_notes, 
-        prior_image_data_b64=prior_b64,
+        image_path=image_path, 
+        clinical_notes=clinical_notes, 
+        prior_image_path=prior_path,
         window_center=window_center,
         window_width=window_width
     )
@@ -184,3 +189,4 @@ async def get_patient_observations(patient_id: str, current_user: User = Depends
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+port=8000)

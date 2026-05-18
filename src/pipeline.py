@@ -75,23 +75,24 @@ class ClinicaLENSPipeline:
         img = self.load_and_window_image(image_path, window_center, window_width)
         img_tensor = self.transform(img).unsqueeze(0).to(self.device)
         
-        # 1. MC Dropout for Uncertainty Estimation
-        all_probs = []
+        # 1. Vectorized MC Dropout for Uncertainty Estimation
         self.vision_model.train() # Enable Dropout
         with torch.no_grad():
-            for _ in range(mc_samples):
-                vision_feats = self.vision_model(img_tensor)
-                # For demo, we simulate a text embedding and fusion
-                text_emb = torch.randn(1, 768).to(self.device)
-                fusion_out = self.fusion_model(vision_feats, text_emb)
-                probs = torch.softmax(fusion_out, dim=1)
-                all_probs.append(probs)
-        
-        mean_probs = torch.mean(torch.stack(all_probs), dim=0).squeeze()
-        std_probs = torch.std(torch.stack(all_probs), dim=0).squeeze()
+            # Process all Monte Carlo samples in a single vectorized batch
+            batch_img_tensor = img_tensor.repeat(mc_samples, 1, 1, 1)
+            vision_feats = self.vision_model(batch_img_tensor)
+            # Simulate a text embedding and fusion
+            text_emb = torch.randn(mc_samples, 768).to(self.device)
+            fusion_out = self.fusion_model(vision_feats, text_emb)
+            
+            probs = torch.softmax(fusion_out, dim=1)
+            
+        mean_probs = torch.mean(probs, dim=0).squeeze()
+        std_probs = torch.std(probs, dim=0).squeeze()
+        mean_logits = torch.mean(fusion_out, dim=0).squeeze()
         
         # 2. Clinical Probability Calibration (Phase 11)
-        mean_probs_calibrated = self.calibrator.calibrate(mean_probs)
+        mean_probs_calibrated = self.calibrator.calibrate(mean_logits)
         prediction = np.argmax(mean_probs_calibrated).item()
         uncertainty = std_probs[prediction].item()
 
