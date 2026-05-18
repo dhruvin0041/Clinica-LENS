@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clinica-lens-api
+  namespace: production
+  labels:
+    app: clinica-lens
+    component: api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: clinica-lens
+      component: api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: clinica-lens
+        component: api
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        linkerd.io/inject: enabled # mTLS via Service Mesh
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+      - name: api
+        image: dhruvin0041/clinica-lens-api:v1.0.0
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - secretRef:
+            name: clinica-lens-secrets
+        env:
+        - name: S3_BUCKET_NAME
+          value: "clinica-lens-data-prod"
+        resources:
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+          requests:
+            cpu: "1"
+            memory: "2Gi"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5

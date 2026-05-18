@@ -1,0 +1,29 @@
+{
+  "Name": "Clinica-LENS-Orthanc",
+  "StorageDirectory": "/var/lib/orthanc/db",
+  "IndexDirectory": "/var/lib/orthanc/db",
+  "StorageAccessOnFind": "Always",
+  "HttpPort": 8042,
+  "DicomPort": 4242,
+  "DicomAet": "CLINICA_LENS",
+  "DefaultEncoding": "Utf8",
+  "DicomCheckCalledAet": true,
+  "DicomTlsEnabled": true,
+  "DicomTlsCertificate": "/etc/orthanc/certs/orthanc.crt",
+  "DicomTlsPrivateKey": "/etc/orthanc/certs/orthanc.key",
+  "DicomTlsTrustedCertificates": "/etc/orthanc/certs/ca.crt",
+  "DicomTlsRemoteCertificateRequired": true,
+  "RegisteredUsers": {
+    "admin": "orthanc_secure_password"
+  },
+  "WebDavEnabled": false,
+  "Plugins": [
+    "/usr/share/orthanc/plugins",
+    "/usr/local/share/orthanc/plugins"
+  ],
+  "Redis": {
+    "Host": "redis-service",
+    "Port": 6379
+  },
+  "PythonScript": "/etc/orthanc/scripts/orthanc_event_publisher.py"
+}

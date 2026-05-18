@@ -1,9 +1,13 @@
 import os
 from celery import Celery
 from src.pipeline import ClinicaLENSPipeline
+from src.storage import StorageBackend
 import base64
 from io import BytesIO
 from PIL import Image
+from opentelemetry.instrumentation.celery import CeleryInstrumentor
+
+CeleryInstrumentor().instrument()
 
 celery_app = Celery(
     "clinica_lens_worker",
@@ -11,22 +15,30 @@ celery_app = Celery(
     backend=os.getenv("CELERY_RESULT_BACKEND", "redis://localhost:6379/0")
 )
 
-# Global pipeline instance in the worker to avoid reloading for every task
 pipeline = None
+storage_backend = StorageBackend()
 
 def get_pipeline():
     global pipeline
     if pipeline is None:
         pipeline = ClinicaLENSPipeline()
-        # Initialize RAG if needed
         pipeline.rag_engine.load_vector_db()
         if not pipeline.rag_engine.qa_chain:
             pipeline.rag_engine.setup_llm()
     return pipeline
 
 @celery_app.task(name="tasks.predict_task")
-def predict_task(image_path, clinical_notes, prior_image_path=None, window_center=None, window_width=None):
+def predict_task(image_uri, clinical_notes, prior_image_uri=None, window_center=None, window_width=None):
     pipe = get_pipeline()
+    
+    # Download files from S3 to local scratch space for processing
+    image_path = f"/tmp/worker_current_{os.getpid()}.dcm"
+    storage_backend.download_file(image_uri, image_path)
+    
+    prior_path = None
+    if prior_image_uri:
+        prior_path = f"/tmp/worker_prior_{os.getpid()}.dcm"
+        storage_backend.download_file(prior_image_uri, prior_path)
     
     try:
         results = pipe.predict(
