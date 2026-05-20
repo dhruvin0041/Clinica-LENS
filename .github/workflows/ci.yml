@@ -1,60 +1,61 @@
-name: Clinica-LENS Enterprise CI
+name: Clinica-LENS CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main, master ]
 
 jobs:
   test-and-lint:
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v3
     
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
       with:
-        python-version: "3.10"
+        python-version: '3.10'
         cache: 'pip'
         
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest pytest-cov flake8 black
+        pip install pytest pytest-cov bandit flake8
         
-    - name: Lint with flake8
+    - name: Security scan (Bandit)
+      run: |
+        bandit -r src/ app/ -ll
+        
+    - name: Linting (Flake8)
       run: |
         # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 src app tests --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
+        flake8 src app tests --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
         
-    - name: Static Type Checking
-      run: |
-        pip install mypy
-        mypy src/ --ignore-missing-imports || true
-        
-    - name: Run Pytest
+    - name: Run Tests with Coverage
       run: |
         pytest tests/ --cov=src --cov-report=xml
         
-  build-and-scan-containers:
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
+
+  build-docker:
     needs: test-and-lint
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
     steps:
     - uses: actions/checkout@v3
     
-    - name: Build API Image
-      run: docker build -t clinica-lens-api:test -f Dockerfile.api .
+    - name: Build API Docker image
+      run: docker build -t clinica-lens-api -f Dockerfile.api .
       
-    - name: Run Trivy Vulnerability Scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'clinica-lens-api:test'
-        format: 'table'
-        exit-code: '0' # Set to 1 in strict production to block builds on critical CVEs
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
+    - name: Build UI Docker image
+      run: docker build -t clinica-lens-ui -f Dockerfile.ui .

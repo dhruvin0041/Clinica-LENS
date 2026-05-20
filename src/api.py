@@ -10,7 +10,7 @@ from datetime import timedelta
 from src.worker import predict_task
 from src.auth import (
     Token, User, get_current_user, authenticate_user, 
-    create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, fake_users_db, verify_password
+    create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, verify_password
 )
 from celery.result import AsyncResult
 from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
@@ -189,4 +189,3 @@ async def get_patient_observations(patient_id: str, current_user: User = Depends
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-port=8000)
